@@ -18,6 +18,8 @@ Numbered releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ### Changed
 
+- Both Node projects and CI use exactly Node.js 24.21.0; npm rejects other runtime versions.
+
 - Museum and Emotion Machine share one npm workspace install, development toolchain and root lockfile.
 - The collection README introduces each project and gives its start command.
 

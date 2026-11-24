@@ -32,7 +32,7 @@ of the inputs, so the factory is repeatable, not chaotic.
 
 ## Quickstart
 
-Use the Node version range listed in the collection's root README. Run `npm ci` once from the repository root to install the shared tools. The generator makes no network calls.
+Use Node.js 24.21.0, as pinned in the collection root. Run `npm ci` once from the repository root to install the shared tools. The generator makes no network calls.
 
 The commands below run from this folder. From the repository root, `npm run demo` runs the example, and `npm run emotion -- --demo --json` prints JSON.
 

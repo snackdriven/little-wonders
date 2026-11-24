@@ -36,7 +36,7 @@ Form 27-B travels through queues, detours and requests for further cooperation. 
 
 ## Take one home
 
-The Node projects share one install. From the repository root, run:
+The Node projects share one install. Select Node.js 24.21.0 with your version manager (`nvm use 24.21.0` with nvm-windows). From the repository root, run:
 
 ```sh
 npm ci
@@ -51,7 +51,7 @@ Then pick a project:
 | Museum | Run `npm run museum`. |
 | Emotion Machine | Run `npm run demo`, or `npm run emotion -- --demo --json`. |
 
-For the Node projects, use Node.js 22.12 or newer on the 22.x line, Node.js 24.x, or Node.js 26 or newer. Each folder's README has the full instructions.
+Use Node.js **24.21.0** for both Node projects. The exact version is pinned in `.node-version`, `.nvmrc` and `package.json`; npm checks it during installation. CI uses the same version. Each folder's README has the full instructions.
 
 Run `npm run check` to typecheck both Node projects, run their tests and build the museum. Shared development tools and the lockfile live at the repository root.
 

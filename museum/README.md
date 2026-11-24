@@ -15,7 +15,7 @@ It's a static site generator: drop a markdown file per dead project into
 
 ## Quick start
 
-Use the Node version range listed in the collection's root README. Run `npm ci` once from the repository root to install the shared tools. From the root, `npm run museum` builds the museum and starts its local server. The commands below run from this folder.
+Use Node.js 24.21.0, as pinned in the collection root. Run `npm ci` once from the repository root to install the shared tools. From the root, `npm run museum` builds the museum and starts its local server. The commands below run from this folder.
 The four included exhibits are fictional sample content. They are not Kayla's project history.
 
 ```bash
