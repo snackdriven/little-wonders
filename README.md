@@ -36,16 +36,24 @@ Form 27-B travels through queues, detours and requests for further cooperation. 
 
 ## Take one home
 
-Each folder runs on its own. Download or clone the repo, then pick a project:
+The Node projects share one install. From the repository root, run:
+
+```sh
+npm ci
+```
+
+Then pick a project:
 
 | Project | How to start |
 | --- | --- |
 | Nullify | Open `nullify/index.html` in a browser. |
 | The Bureau of Small Decisions | Open `bureau-of-small-decisions/index.html` in a browser. |
-| Museum | In `museum/`, run `npm ci`, then `npm run dev`. |
-| Emotion Machine | In `emotion-machine/`, run `npm ci`, then `npm run demo`. |
+| Museum | Run `npm run museum`. |
+| Emotion Machine | Run `npm run demo`, or `npm run emotion -- --demo --json`. |
 
 For the Node projects, use Node.js 22.12 or newer on the 22.x line, Node.js 24.x, or Node.js 26 or newer. Each folder's README has the full instructions.
+
+Run `npm run check` to typecheck both Node projects, run their tests and build the museum. Shared development tools and the lockfile live at the repository root.
 
 The two HTML toys need no build step. The Bureau requests Google Fonts and uses local font fallbacks if they are unavailable.
 

@@ -15,11 +15,10 @@ It's a static site generator: drop a markdown file per dead project into
 
 ## Quick start
 
-Use Node.js 22.12 or newer on the 22.x line, Node.js 24.x, or Node.js 26 or newer.
+Use the Node version range listed in the collection's root README. Run `npm ci` once from the repository root to install the shared tools. From the root, `npm run museum` builds the museum and starts its local server. The commands below run from this folder.
 The four included exhibits are fictional sample content. They are not Kayla's project history.
 
 ```bash
-npm install
 npm run dev          # build + serve at http://localhost:4173
 ```
 

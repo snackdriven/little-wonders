@@ -1,0 +1,25 @@
+{
+  "name": "little-wonders",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An ode to frivolity and a commitment of whimsy.",
+  "workspaces": ["emotion-machine", "museum"],
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  },
+  "scripts": {
+    "museum": "npm run dev --workspace=museum",
+    "emotion": "tsx emotion-machine/bin/cli.ts",
+    "demo": "npm run demo --workspace=emotion-machine",
+    "build": "npm run build --workspace=museum",
+    "test": "npm run test --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^5.1.1"
+  }
+}

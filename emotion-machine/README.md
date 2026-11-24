@@ -32,7 +32,9 @@ of the inputs, so the factory is repeatable, not chaotic.
 
 ## Quickstart
 
-Use Node.js 22 or newer. Run `npm ci` once to install the pinned development tools. The generator makes no network calls.
+Use the Node version range listed in the collection's root README. Run `npm ci` once from the repository root to install the shared tools. The generator makes no network calls.
+
+The commands below run from this folder. From the repository root, `npm run demo` runs the example, and `npm run emotion -- --demo --json` prints JSON.
 
 ```bash
 # Built-in example

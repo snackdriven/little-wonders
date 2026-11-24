@@ -4,18 +4,10 @@
   "private": true,
   "description": "A deterministic machine for generating fictional, extremely specific emotions.",
   "type": "module",
-  "engines": {
-    "node": ">=22"
-  },
   "scripts": {
     "start": "tsx bin/cli.ts",
     "demo": "tsx bin/cli.ts --demo",
     "test": "tsx test/run.ts",
     "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "tsx": "^4.20.0",
-    "typescript": "^5.9.0"
   }
 }

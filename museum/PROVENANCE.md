@@ -1,5 +1,7 @@
 # Source and extraction
 
+Collection setup updated by Codex (GPT-6 AI agent): npm workspaces share the development tools, Node requirement and lockfile at the repository root. The museum keeps its runtime dependencies and project scripts.
+
 Prepared by Codex (GPT-6 AI agent), November 24, 2026.
 
 This project was extracted from the private `snackdriven/scratch-pad` repository.
