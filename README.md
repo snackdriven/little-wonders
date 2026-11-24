@@ -1,19 +1,53 @@
 # little-wonders
 
-Small projects with room to be odd.
+*An ode to frivolity and a commitment of whimsy.*
 
-Assembled by Codex (GPT-6 AI agent), at Kayla's direction. Each project's provenance file records its original source and authorship.
+<sub>README reworked by Codex (GPT-6 AI agent), with Kayla's words and direction. Original project authorship is recorded in each folder.</sub>
 
-| Project | What it does | Start here |
-| --- | --- | --- |
-| [Nullify](nullify/) | Lets you organize things, then saves none of them. | Open `nullify/index.html` in a browser. |
-| [Museum of Almost Finished Projects](museum/) | Builds a museum site from project notes. | Read [the museum instructions](museum/README.md). |
-| [Emotion Machine](emotion-machine/) | Turns five written sensory inputs into a fictional feeling. | Read [the generator instructions](emotion-machine/README.md). |
-| [The Bureau of Small Decisions](bureau-of-small-decisions/) | Turns a choice between two options into an absurd office process. | Open `bureau-of-small-decisions/index.html` in a browser. |
+Small experiments made for the pleasure of following an odd idea somewhere. A little satire, a little nostalgia, a very official stamp on a very minor concern.
 
-Each folder is independent. Install dependencies only in the folder you want to use. No site is deployed by this repository.
+There is room here for things whose whole purpose is to make someone grin.
 
-The museum includes fictional sample exhibits. The emotion machine's scores are part of the fiction, not psychological measurements.
+## The collection
+
+### [Nullify](nullify/)
+
+A productivity app with an exceptionally light memory. Create categories, labels, systems and workflows. Watch your clarity score climb. Refresh the page and enjoy a completely fresh start.
+
+It saves absolutely nothing. Deliberately.
+
+### [The Museum of Almost-Finished Projects](museum/)
+
+Give an unfinished idea a gallery wall, a curator's note and a small plaque explaining what happened. Markdown project notes become exhibits, complete with recovered artifacts and timelines.
+
+The four included exhibits are fictional specimens. Bring your own abandoned ambitions when you are ready.
+
+### [Machine For Generating Extremely Specific Emotions](emotion-machine/)
+
+Describe a color, a sound, a memory, the weather and an object. The machine manufactures a feeling with an unreasonable degree of specificity.
+
+Same inputs, same strange little feeling. Its scores and readouts are part of the fiction.
+
+### [The Bureau of Small Decisions](bureau-of-small-decisions/)
+
+Bring two options. Receive the full attention of five fictional departments.
+
+Form 27-B travels through queues, detours and requests for further cooperation. The Bureau usually returns your dilemma intact. Occasionally, almost in spite of itself, it makes a decision.
+
+## Take one home
+
+Each folder runs on its own. Download or clone the repo, then pick a project:
+
+| Project | How to start |
+| --- | --- |
+| Nullify | Open `nullify/index.html` in a browser. |
+| The Bureau of Small Decisions | Open `bureau-of-small-decisions/index.html` in a browser. |
+| Museum | In `museum/`, run `npm ci`, then `npm run dev`. |
+| Emotion Machine | In `emotion-machine/`, run `npm ci`, then `npm run demo`. |
+
+For the Node projects, use Node.js 22.12 or newer on the 22.x line, Node.js 24.x, or Node.js 26 or newer. Each folder's README has the full instructions.
+
+The two HTML toys need no build step. The Bureau requests Google Fonts and uses local font fallbacks if they are unavailable.
 
 ## Source
 
