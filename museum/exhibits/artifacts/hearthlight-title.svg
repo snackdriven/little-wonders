@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Faded Hearthlight game title screen">
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.62" r="0.6">
+      <stop offset="0" stop-color="#3a2c1c"/><stop offset="1" stop-color="#120d09"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#glow)"/>
+  <!-- a little hearth -->
+  <rect x="290" y="250" width="60" height="40" fill="#241a12"/>
+  <path d="M300 250 q20 -40 40 0 q-10 -16 -20 -10 q-8 -22 -20 10 z" fill="#c4862f" opacity="0.85"/>
+  <path d="M312 252 q8 -22 16 0 z" fill="#e9d18a"/>
+  <ellipse cx="320" cy="300" rx="120" ry="22" fill="#c9a24b" opacity="0.06"/>
+  <!-- title -->
+  <text x="320" y="150" font-family="Georgia, serif" font-size="58" fill="#e9d6a8" text-anchor="middle" letter-spacing="4">Hearthlight</text>
+  <text x="320" y="184" font-family="monospace" font-size="13" fill="#8a7136" text-anchor="middle" letter-spacing="6">A GAME ABOUT KEEPING WARM</text>
+  <!-- menu -->
+  <text x="320" y="330" font-family="monospace" font-size="14" fill="#c9a24b" text-anchor="middle">▸ New Fire</text>
+  <text x="320" y="356" font-family="monospace" font-size="14" fill="#5f564493" text-anchor="middle">Continue (no saves found)</text>
+  <text x="320" y="382" font-family="monospace" font-size="14" fill="#5f564493" text-anchor="middle">Settings</text>
+  <rect width="640" height="400" fill="#000" opacity="0.05"/>
+</svg>

@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" href="data:," />
+<title>The Bureau of Small Decisions — Form 27-B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1e1e2e; --mantle:#181825; --crust:#11111b; --surface:#313244; --surface2:#45475a; --overlay:#6c7086;
+    --text:#cdd6f4; --sub:#a6adc8; --muted:#7f849c;
+    --blue:#89b4fa; --lav:#b4befe; --mauve:#cba6f7; --pink:#f5c2e7; --teal:#94e2d5; --green:#a6e3a1; --yellow:#f9e2af; --peach:#fab387; --red:#f38ba8; --sky:#89dceb;
+    --card:#242438; --line:#353550; --ink:#1e1e2e;
+  }
+  /* Dark-only by design — Kayla runs dark mode always (Catppuccin Mocha). */
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{ background:var(--bg); color:var(--text); font-family:Inter,system-ui,sans-serif; overflow-x:hidden; }
+  body::before{ content:""; position:fixed; inset:0; background-image:radial-gradient(color-mix(in srgb, var(--text) 7%, transparent) 1px, transparent 1px); background-size:22px 22px; pointer-events:none; }
+  .wrap{ max-width:1020px; margin:0 auto; padding:30px 18px 48px; position:relative; }
+
+  /* header */
+  .top{ max-width:760px; }
+  .badge{ display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--line); padding:6px 12px; border-radius:999px; font-size:11px; letter-spacing:.14em; font-weight:800; text-transform:uppercase; color:var(--lav); }
+  .badge i{ width:7px;height:7px;border-radius:99px;background:var(--teal); display:block; box-shadow:0 0 0 5px color-mix(in srgb, var(--teal) 18%, transparent); }
+  h1{ font-weight:900; font-size:clamp(34px,5.6vw,56px); line-height:1.02; letter-spacing:-.03em; margin:18px 0 12px; }
+  h1 .hl{ color:var(--mauve); }
+  .lede{ color:var(--sub); font-size:16.5px; line-height:1.6; max-width:640px; margin:0; }
+  .lede b{ color:var(--text); }
+  .promise{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .promise span{ font-size:12px; font-weight:700; color:var(--sub); border:1px solid var(--line); background:var(--mantle); padding:7px 11px; border-radius:999px; }
+  .promise span b{ color:var(--yellow); }
+
+  /* bureau card */
+  .bureau{ margin-top:24px; background:var(--card); border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.28); }
+  .bureau-head{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--line); background:color-mix(in srgb, var(--surface) 45%, transparent); }
+  .bureau-head .left{ display:flex; align-items:center; gap:10px; font-weight:800; font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
+  .dot{ width:10px;height:10px;border-radius:99px;background:var(--red);} .dot.y{background:var(--yellow);} .dot.g{background:var(--green);}
+  .status-bar{ font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:700; color:var(--yellow); background:var(--crust); border:1px solid var(--line); padding:8px 12px; border-radius:999px; max-width:100%; }
+
+  /* intake form */
+  .intake{ padding:20px 18px 6px; }
+  .intake-label{ font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; }
+  .vs-row{ display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:stretch; }
+  @media(max-width:560px){ .vs-row{ grid-template-columns:1fr; } .vs{ justify-self:center; } }
+  .opt-input{ width:100%; background:var(--mantle); border:1.5px solid var(--line); border-radius:12px; color:var(--text); font-family:Inter,sans-serif; font-size:17px; font-weight:700; padding:16px 14px; outline:none; transition:border-color .2s; }
+  .opt-input:focus{ border-color:var(--mauve); }
+  .opt-input::placeholder{ color:var(--muted); font-weight:600; }
+  .vs{ align-self:center; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:12px; color:var(--ink); background:var(--yellow); border-radius:50%; width:38px; height:38px; display:grid; place-items:center; }
+  .presets{ display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+  .preset{ appearance:none; cursor:pointer; font-family:Inter,sans-serif; font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:var(--mantle); color:var(--sub); transition:all .2s; }
+  .preset:hover{ color:var(--text); border-color:var(--surface2); }
+  .preset.on{ background:color-mix(in srgb, var(--mauve) 22%, var(--mantle)); color:var(--lav); border-color:var(--mauve); }
+  .submit-row{ padding:16px 18px 20px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .big-btn{ appearance:none; border:0; cursor:pointer; background:var(--mauve); color:var(--ink); font-weight:900; font-size:18px; letter-spacing:-.01em; padding:17px 28px; border-radius:999px; width:min(560px,100%); box-shadow:0 10px 0 color-mix(in srgb, var(--mauve) 55%, #000), 0 18px 34px rgba(0,0,0,.3); transition:transform .12s, box-shadow .12s, filter .2s; font-family:Inter,sans-serif; }
+  .big-btn:hover{ filter:brightness(1.05); }
+  .big-btn:active{ transform:translateY(6px); box-shadow:0 4px 0 color-mix(in srgb, var(--mauve) 55%, #000); }
+  .big-btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+  .big-btn small{ display:block; font-size:12px; font-weight:700; opacity:.75; margin-top:2px; }
+  .meta-row{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; font-size:12.5px; color:var(--muted); font-weight:600; }
+  .meta-row b{ color:var(--text); }
+  .meta-row .zero{ color:var(--teal); }
+
+  /* processing layout */
+  .process{ display:none; border-top:1px solid var(--line); background:var(--mantle); }
+  .process.show{ display:block; }
+  .process-grid{ display:grid; grid-template-columns:250px 1fr; }
+  @media(max-width:760px){ .process-grid{ grid-template-columns:1fr; } }
+  .queue{ padding:16px; border-right:1px solid var(--line); }
+  @media(max-width:760px){ .queue{ border-right:0; border-bottom:1px solid var(--line); } }
+  .queue h3{ margin:0 0 10px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:800; }
+  .q-item{ display:flex; gap:9px; align-items:flex-start; padding:8px 9px; border-radius:10px; font-size:13px; font-weight:600; color:var(--muted); transition:all .25s; }
+  .q-item .n{ font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; width:20px; height:20px; border-radius:6px; background:var(--surface); color:var(--sub); display:grid; place-items:center; flex:none; margin-top:1px; }
+  .q-item.on{ background:color-mix(in srgb, var(--yellow) 13%, transparent); color:var(--text); }
+  .q-item.on .n{ background:var(--yellow); color:var(--ink); }
+  .q-item.done{ color:var(--sub); }
+  .q-item.done .n{ background:color-mix(in srgb, var(--teal) 30%, var(--surface)); color:var(--teal); }
+  .clerk{ margin-top:14px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; display:flex; gap:10px; align-items:flex-start; }
+  .clerk p{ margin:0; font-size:12.5px; line-height:1.5; color:var(--sub); }
+  .clerk p b{ color:var(--text); }
+
+  /* feed */
+  .feed{ padding:16px; display:flex; flex-direction:column; gap:10px; min-height:220px; }
+  .feed-empty{ color:var(--muted); font-size:14px; line-height:1.6; border:1.5px dashed var(--line); border-radius:12px; padding:18px; text-align:center; }
+  .step-card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:15px 16px; animation:slidein .45s cubic-bezier(.3,1.2,.4,1); }
+  @keyframes slidein{ from{ transform:translateY(10px); opacity:0 } }
+  .step-card .dept{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:6px; }
+  .step-card .dept .tag{ font-family:"JetBrains Mono",monospace; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); padding:3px 8px; border-radius:6px; }
+  .step-card .dept h4{ margin:0; font-size:15px; font-weight:800; }
+  .step-card .dept .stamp{ margin-left:auto; font-family:"JetBrains Mono",monospace; font-size:10.5px; font-weight:700; color:var(--teal); border:1.5px solid color-mix(in srgb, var(--teal) 55%, transparent); padding:3px 8px; border-radius:6px; transform:rotate(-3deg); text-transform:uppercase; letter-spacing:.06em; }
+  .step-card p{ margin:0; color:var(--sub); font-size:14px; line-height:1.6; }
+  .step-card p b{ color:var(--text); }
+  .detail{ margin-top:10px; background:var(--crust); border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-family:"JetBrains Mono",monospace; font-size:12px; line-height:1.75; color:var(--sub); overflow-wrap:anywhere; }
+  .detail .k{ color:var(--muted); }
+  .detail .hl{ color:var(--yellow); }
+  .bar-row{ display:grid; grid-template-columns:118px 1fr 42px; gap:10px; align-items:center; font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--sub); margin-top:5px; }
+  .bar-track{ height:9px; background:var(--surface); border-radius:99px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:99px; width:0; transition:width .8s cubic-bezier(.3,.8,.3,1); }
+
+  /* transit cards — the journey between departments */
+  .transit-card{ background:var(--mantle); border:1.5px dashed var(--surface2); padding:12px 14px; margin-left:28px; }
+  @media(max-width:560px){ .transit-card{ margin-left:10px; } }
+  .transit-card p{ font-size:13.5px; }
+  .transit-tag{ background:var(--surface2); color:var(--text); }
+  .transit-card .dept .stamp.transit-stamp{ color:var(--peach); border-color:color-mix(in srgb, var(--peach) 55%, transparent); }
+
+  /* countersignatures */
+  .c-sign{ margin-top:10px; padding-top:9px; border-top:1px dashed var(--line); font-family:"JetBrains Mono",monospace; font-size:11px; line-height:1.6; color:var(--muted); }
+
+  /* applicant-action requirements — appear in the feed, unannounced */
+  .stall-card{ border:1.5px solid color-mix(in srgb, var(--red) 60%, var(--line)); }
+  .stall-card .dept .tag{ background:var(--red); }
+  .stall-sub{ font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--muted); margin-top:8px !important; }
+  .stall-note{ font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--teal); margin-top:10px !important; }
+  .stall-err{ font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--red); margin-top:8px !important; min-height:14px; }
+  .stall-btn{ appearance:none; cursor:pointer; font-family:Inter,sans-serif; font-weight:800; font-size:13.5px; padding:10px 16px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); margin-top:10px; }
+  .stall-btn:hover{ background:var(--surface2); }
+  .stall-btn:disabled{ opacity:.55; cursor:default; }
+  .stall-input{ background:var(--mantle); border:1.5px solid var(--line); border-radius:10px; color:var(--text); font-family:Inter,sans-serif; font-size:15px; font-weight:700; padding:10px 12px; outline:none; margin-top:10px; width:min(320px,100%); display:block; }
+  .stall-input:focus{ border-color:var(--mauve); }
+  .sign-line{ margin-top:14px; border-bottom:2px solid var(--sub); padding:8px 6px 7px; cursor:pointer; color:var(--muted); font-size:13px; min-height:38px; }
+  .sign-line:hover{ border-color:var(--text); }
+  .sign-line .signed{ font-family:"Segoe Script","Brush Script MT",cursive; font-size:22px; color:var(--lav); }
+  .wait-check{ display:flex; gap:10px; align-items:center; margin-top:12px; cursor:pointer; font-size:14.5px; font-weight:700; color:var(--text); }
+  .wait-check input{ width:20px; height:20px; accent-color:var(--mauve); cursor:pointer; flex:none; }
+  .hold-btn{ position:relative; overflow:hidden; appearance:none; cursor:pointer; width:min(340px,100%); margin-top:12px; padding:14px 16px; border-radius:12px; border:1.5px solid var(--line); background:var(--mantle); color:var(--text); font-family:Inter,sans-serif; font-weight:800; font-size:14.5px; touch-action:none; }
+  .hold-fill{ position:absolute; inset:0; width:0%; background:color-mix(in srgb, var(--teal) 30%, transparent); pointer-events:none; }
+  .hold-btn .lbl{ position:relative; }
+  .hold-btn:disabled{ opacity:.7; cursor:default; }
+  .phone-row{ display:flex; gap:12px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+  .phone-ic{ width:40px; height:40px; border-radius:12px; background:var(--surface); display:grid; place-items:center; flex:none; }
+  .ringing{ animation:ring .5s ease-in-out infinite; }
+  @keyframes ring{ 0%,100%{ transform:rotate(0) } 25%{ transform:rotate(-9deg) } 75%{ transform:rotate(9deg) } }
+  .stamp-pad{ appearance:none; cursor:pointer; margin-top:12px; transform:rotate(-4deg); font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--red); background:transparent; border:3px solid color-mix(in srgb, var(--red) 70%, transparent); border-radius:10px; padding:12px 16px; }
+  .stamp-pad:disabled{ opacity:.6; cursor:default; }
+  .received-stamp{ display:inline-block; margin-top:12px; margin-left:10px; transform:rotate(3deg); font-family:"JetBrains Mono",monospace; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); border:2.5px solid color-mix(in srgb, var(--teal) 60%, transparent); border-radius:8px; padding:5px 10px; }
+  .cap-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; max-width:340px; }
+  .cap-tile{ appearance:none; cursor:pointer; border:1.5px solid var(--line); background:var(--mantle); color:var(--sub); border-radius:10px; padding:14px 6px; font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; letter-spacing:.06em; }
+  .cap-tile.sel{ border-color:var(--yellow); color:var(--yellow); background:color-mix(in srgb, var(--yellow) 12%, var(--mantle)); }
+  .cap-none{ margin-top:10px; display:inline-block; }
+  .ticket-stub{ display:inline-block; margin-top:12px; font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:700; color:var(--ink); background:var(--yellow); border-radius:8px; padding:9px 14px; transform:rotate(-2deg); }
+
+  /* return card — the end, which is the beginning */
+  .return-card{ display:none; border:1.5px dashed color-mix(in srgb, var(--mauve) 55%, var(--line)); background:var(--card); border-radius:14px; padding:20px; text-align:center; animation:slidein .5s cubic-bezier(.3,1.2,.4,1); }
+  .return-card.show{ display:block; }
+  .return-card .rc-label{ font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .return-card h3{ margin:10px 0 6px; font-size:23px; font-weight:900; letter-spacing:-.02em; line-height:1.15; }
+  .return-card h3 .a{ color:var(--pink); } .return-card h3 .b{ color:var(--sky); }
+  .return-card p{ margin:0 auto; color:var(--sub); font-size:14px; line-height:1.6; max-width:480px; }
+  .rc-stats{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:14px 0 16px; }
+  .rc-stats span{ font-size:12px; font-weight:700; color:var(--sub); border:1px solid var(--line); background:var(--mantle); padding:7px 11px; border-radius:999px; }
+  .rc-stats span b{ color:var(--teal); }
+  .again{ appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--text); font-family:Inter,sans-serif; font-weight:800; font-size:14px; padding:12px 18px; border-radius:999px; cursor:pointer; }
+  .again:hover{ background:var(--surface2); }
+
+  /* footer cards */
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+  @media(max-width:700px){ .grid{ grid-template-columns:1fr; } }
+  .mini{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .mini h3{ margin:0 0 6px; font-size:14px; } .mini p{ margin:0; color:var(--sub); font-size:13.5px; line-height:1.55; }
+  .foot{ text-align:center; color:var(--muted); font-size:12.5px; margin-top:22px; line-height:1.6; }
+
+  /* route variety */
+  .q-item.closed-item{ opacity:.8; }
+  .q-item.closed-item .n{ background:color-mix(in srgb, var(--red) 35%, var(--surface)); color:var(--red); }
+  .q-item .route-note{ display:block; font-size:11px; color:var(--muted); font-weight:600; margin-top:1px; }
+  .notice-card{ border-style:dashed; }
+  .closure-card{ border:1.5px dashed color-mix(in srgb, var(--red) 55%, var(--line)); background:color-mix(in srgb, var(--red) 6%, var(--card)); }
+  .closure-card .dept .stamp{ color:var(--red); border-color:color-mix(in srgb, var(--red) 55%, transparent); }
+  .petition-card{ border-color:color-mix(in srgb, var(--yellow) 50%, var(--line)); }
+  .audit-card{ border-color:color-mix(in srgb, var(--sky) 45%, var(--line)); }
+
+  /* waiting room & corridor services */
+  .amenities{ margin-top:14px; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px; }
+  .amen-title{ margin:0; font-size:17px; font-weight:800; }
+  .amen-sub{ margin:6px 0 0; color:var(--sub); font-size:13.5px; line-height:1.55; }
+  .amen-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+  @media(max-width:700px){ .amen-grid{ grid-template-columns:1fr; } }
+  .amen{ background:var(--mantle); border:1px solid var(--line); border-radius:14px; padding:14px; }
+  .amen h3{ margin:0 0 6px; font-size:13.5px; }
+  .amen p{ margin:0; color:var(--sub); font-size:13px; line-height:1.55; }
+  .amen .out{ margin-top:10px; font-family:"JetBrains Mono",monospace; font-size:12px; line-height:1.7; color:var(--sub); overflow-wrap:anywhere; }
+  .amen .out .hl{ color:var(--yellow); }
+  .now-serving{ font-family:"JetBrains Mono",monospace; font-size:32px; font-weight:700; color:var(--yellow); background:var(--crust); border:1px solid var(--line); border-radius:10px; text-align:center; padding:8px; margin-top:10px; }
+  .now-serving small{ display:block; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .amen-btn{ appearance:none; cursor:pointer; font-family:Inter,sans-serif; font-weight:800; font-size:13px; padding:9px 14px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); margin-top:10px; }
+  .amen-btn:hover{ background:var(--surface2); }
+  .amen-btn:disabled{ opacity:.55; cursor:default; }
+  .pam-btns{ display:flex; flex-direction:column; gap:6px; margin-top:10px; }
+  .pam-btn{ appearance:none; cursor:pointer; text-align:left; font-family:Inter,sans-serif; font-weight:700; font-size:13px; padding:9px 12px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--text); }
+  .pam-btn:hover{ border-color:var(--surface2); }
+  .pam-page{ margin-top:8px; background:var(--card); border:1px solid var(--line); border-radius:8px; height:110px; position:relative; }
+  .pam-page span{ position:absolute; bottom:6px; right:10px; font-family:"JetBrains Mono",monospace; font-size:10.5px; color:var(--muted); }
+  .sugg-input{ width:100%; background:var(--card); border:1.5px solid var(--line); border-radius:10px; color:var(--text); font-family:Inter,sans-serif; font-size:14px; font-weight:600; padding:10px 12px; outline:none; margin-top:10px; }
+  .sugg-input:focus{ border-color:var(--mauve); }
+
+  /* outcome & survey */
+  .return-card.has-outcome{ border:2px solid var(--yellow); background:color-mix(in srgb, var(--yellow) 6%, var(--card)); }
+  .outcome-block{ margin:16px auto 4px; max-width:520px; border:1px solid color-mix(in srgb, var(--yellow) 55%, var(--line)); border-radius:12px; padding:16px; background:var(--mantle); text-align:center; }
+  .gold-seal{ width:88px; height:88px; margin:0 auto 10px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #f9e2af, #e8c15a 60%, #b8860b); color:#5b4300; display:grid; place-items:center; text-align:center; font-family:"JetBrains Mono",monospace; font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border:3px double #8a6508; line-height:1.35; }
+  .outcome-head{ font-weight:800; color:var(--yellow); font-size:15px !important; }
+  .outcome-choice{ font-size:20px; font-weight:900; color:var(--text); margin-top:6px !important; }
+  .rc-notvisited{ margin-top:12px !important; font-size:13px !important; }
+  .survey{ margin-top:16px; border-top:1px dashed var(--line); padding-top:14px; }
+  .survey-q{ font-size:13.5px; font-weight:700; color:var(--text); }
+  .stars{ display:flex; gap:6px; justify-content:center; margin-top:8px; }
+  .star{ appearance:none; cursor:pointer; background:var(--mantle); border:1px solid var(--line); border-radius:10px; width:44px; height:44px; font-size:20px; color:var(--muted); font-family:Inter,sans-serif; }
+  .star.on{ color:var(--yellow); border-color:var(--yellow); }
+  .star:disabled{ cursor:default; }
+  .survey-note{ font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--teal); margin-top:10px !important; min-height:14px; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="badge"><i></i> Bureau of Small Decisions • Est. 1962 • Form 27-B</div>
+    <h1>Small decisions, given the full weight of a <span class="hl">very large process</span>.</h1>
+    <p class="lede">The Bureau accepts minor, low-stakes dilemmas for formal review. Each submission is routed through <b>the Bureau's specialist departments</b> and returned to you with a complete record of its processing. The route a given case takes is determined during processing and is not published in advance. Most people could settle these in about two seconds. The Bureau prefers to take the matter seriously.</p>
+    <div class="promise">
+      <span>Departments consulted: <b>up to 5</b></span>
+      <span>Average processing time: <b>allow ample time</b></span>
+      <span>Documentation: <b>full, in triplicate</b></span>
+    </div>
+  </header>
+
+  <section class="bureau" aria-label="Bureau of Small Decisions intake and processing">
+    <div class="bureau-head">
+      <div class="left"><span class="dot"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:4px">Intake Window No. 1</span></div>
+      <div class="status-bar" id="statusBar">Status: open for intake. Window hours: now.</div>
+    </div>
+
+    <div class="intake">
+      <p class="intake-label">Step 1 — State your dilemma for the record</p>
+      <div class="vs-row">
+        <input class="opt-input" id="optA" type="text" value="Take a nap" maxlength="48" aria-label="Option A" />
+        <div class="vs">or</div>
+        <input class="opt-input" id="optB" type="text" value="Go for a walk" maxlength="48" aria-label="Option B" />
+      </div>
+      <div class="presets" id="presets">
+        <button class="preset on" data-a="Take a nap" data-b="Go for a walk">Nap or walk?</button>
+        <button class="preset" data-a="Tea" data-b="Coffee">Tea or coffee?</button>
+        <button class="preset" data-a="One more episode" data-b="Responsible bedtime">One more episode or bedtime?</button>
+        <button class="preset" data-a="Text them back now" data-b="Text back dramatically later">Text now or dramatically later?</button>
+        <button class="preset" data-a="Buy the plant" data-b="Pretend I never saw the plant">Buy the plant or walk away?</button>
+        <button class="preset" data-a="Open the snack drawer" data-b="Be a person with willpower">Snack drawer or willpower?</button>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button class="big-btn" id="submitBtn">Submit for full processing<small>departmental review • route determined at processing • complete file provided on return</small></button>
+      <div class="meta-row">
+        <span>Cases processed this session: <b id="loops">0</b></span>
+        <span>Departments per case: <b class="zero">up to 5</b></span>
+        <span>Cases returned to submitter: <b id="returned">0</b></span>
+        <span>Decisions issued: <b id="decisions">0</b></span>
+      </div>
+    </div>
+
+    <div class="process" id="process">
+      <div class="process-grid">
+        <aside class="queue">
+          <h3>Routing queue</h3>
+          <div id="queueList"></div>
+          <div class="clerk">
+            <svg width="34" height="40" viewBox="0 0 34 40" aria-hidden="true" style="flex:none"><ellipse cx="17" cy="17" rx="14" ry="15" fill="#cdd6f4"/><circle cx="12" cy="15" r="2.2" fill="#1e1e2e"/><circle cx="22" cy="15" r="2.2" fill="#1e1e2e"/><ellipse cx="17" cy="21" rx="2.6" ry="3.4" fill="#1e1e2e"/><circle cx="8" cy="20" r="2.6" fill="#f5c2e7" opacity=".85"/><circle cx="26" cy="20" r="2.6" fill="#f5c2e7" opacity=".85"/><path d="M3 30 Q8 25 13 30 Q17 34 21 30 Q26 25 31 30 L31 33 L3 33 Z" fill="#cdd6f4"/></svg>
+            <p><b>The clerk</b> has worked here forever and knows every department by name. He is employee of the month, every month. The Bureau does not discuss the selection process.</p>
+          </div>
+        </aside>
+        <div class="feed" id="feed">
+          <div class="feed-empty" id="feedEmpty">Your case file will be documented here as it moves through the departments.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="amenities" aria-label="Waiting room and corridor services">
+    <h2 class="amen-title">Waiting room &amp; corridor services</h2>
+    <p class="amen-sub">Available at all times, including during processing. Use of these services is recorded. It has no bearing on any case.</p>
+    <div class="amen-grid">
+      <div class="amen">
+        <h3>Waiting room</h3>
+        <p>Numbers are called in an order maintained by the waiting room. Please listen for yours.</p>
+        <div class="now-serving" id="nowServing"><small>Now serving</small>№ 7</div>
+        <p class="out" id="heldNote">Numbers you hold: none.</p>
+        <button type="button" class="amen-btn" id="intercomBtn">Intercom</button>
+        <p class="out" id="intercomMsg"></p>
+      </div>
+      <div class="amen">
+        <h3>Petition for Expedited Processing</h3>
+        <p>Petitions are reviewed in the order received and attached to the case they concern. An approved petition adds the steps its own review requires.</p>
+        <button type="button" class="amen-btn" id="petitionBtn">File petition (Form P-1)</button>
+        <p class="out" id="petitionNote"></p>
+      </div>
+      <div class="amen">
+        <h3>Corridor vending machine</h3>
+        <p>Restocked daily. All selections are priced at $0.00, payable exactly, in full.</p>
+        <button type="button" class="amen-btn" id="vendBtn">Make a selection</button>
+        <div class="out" id="vendOut"></div>
+      </div>
+      <div class="amen">
+        <h3>Pamphlet rack</h3>
+        <p>Bureau literature, for applicants. Take one; it will be replaced.</p>
+        <div class="pam-btns">
+          <button type="button" class="pam-btn">Your File and You: A Guide</button>
+          <button type="button" class="pam-btn">Understanding Waiting</button>
+          <button type="button" class="pam-btn">The Departments, Explained (Abridged)</button>
+        </div>
+        <div id="pamView" hidden>
+          <p class="out" id="pamTitle"></p>
+          <div class="pam-page"><span>Page 1 of 1</span></div>
+        </div>
+      </div>
+      <div class="amen">
+        <h3>Lost &amp; Found desk</h3>
+        <p>For dilemmas misplaced in transit. Enquiries are checked against every shelf, in order.</p>
+        <button type="button" class="amen-btn" id="lfBtn">Check whether my dilemma is lost</button>
+        <div class="out" id="lfOut"></div>
+      </div>
+      <div class="amen">
+        <h3>Suggestions box</h3>
+        <p>Suggestions are filed as pending dilemmas and held for routing at a future date.</p>
+        <input class="sugg-input" id="suggInput" type="text" maxlength="80" placeholder="Your suggestion" aria-label="Your suggestion" />
+        <button type="button" class="amen-btn" id="suggBtn">File suggestion</button>
+        <p class="out" id="suggNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class=" return-wrap" style="margin-top:14px">
+    <div class="return-card" id="returnCard" aria-live="polite">
+      <div class="rc-label">Department of Returns • Final disposition</div>
+      <h3>Still torn between <span class="a" id="rcA">Take a nap</span> and <span class="b" id="rcB">Go for a walk</span>?</h3>
+      <p id="rcIntro">Good news: so is everyone here. Your dilemma has completed the full circuit and is returned to you in its original condition — un-decided, un-damaged, and now extremely well-traveled. Nothing has been resolved. Nothing was ever going to be.</p>
+      <div class="rc-stats">
+        <span>Change since intake: <b>none</b></span>
+        <span>Clarity gained: <b>0%</b></span>
+        <span>Departments visited: <b id="rcDepts">5 of 5</b></span>
+        <span id="rcDecisionStat">Decisions issued: <b>0</b></span>
+        <span>File thickness on return: <b id="rcPages">3 pages</b></span>
+        <span>Fees assessed: <b>$0.00 (paid in full)</b></span>
+        <span>Applicant actions required: <b id="rcActions">0</b></span>
+        <span>Next step: <b>yours again</b></span>
+      </div>
+      <p class="rc-notvisited" id="rcNotVisited" hidden></p>
+      <div class="outcome-block" id="rcOutcome" hidden>
+        <div class="gold-seal">Seal of<br>Outcome</div>
+        <p class="outcome-head">An outcome has occurred. This has been reported.</p>
+        <p>The Department of Returns has issued a decision in this matter. It is recorded in the ledger, under protest from several departments, and reads as follows:</p>
+        <p class="outcome-choice" id="rcChoice"></p>
+        <p>The decision is final in the manner of all Bureau decisions. The Bureau does not expect it to happen again soon.</p>
+      </div>
+      <div class="survey" id="survey">
+        <p class="survey-q">Post-processing satisfaction survey — rate your processing:</p>
+        <div class="stars" role="group" aria-label="Rate your processing from 1 to 5 stars">
+          <button type="button" class="star" data-v="1" aria-label="1 star">★</button>
+          <button type="button" class="star" data-v="2" aria-label="2 stars">★</button>
+          <button type="button" class="star" data-v="3" aria-label="3 stars">★</button>
+          <button type="button" class="star" data-v="4" aria-label="4 stars">★</button>
+          <button type="button" class="star" data-v="5" aria-label="5 stars">★</button>
+        </div>
+        <p class="survey-note" id="surveyNote"></p>
+      </div>
+      <button class="again" id="againBtn" style="margin-top:14px">↻ Send it around again</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="mini"><h3>Why five departments?</h3><p>The Bureau grew by subdivision over several decades. Each department maintains its own records, its own stamps, and its own view of the case. Coordination between them is handled by envelope.</p></div>
+    <div class="mini"><h3>Who is consulted?</h3><p>Depending on the case: the houseplants, the Moon, the Coin Flip Division, and the Department of Vibes. All findings are recorded in the file. Weighting of findings is an internal matter.</p></div>
+    <div class="mini"><h3>What if I submit twice?</h3><p>Repeat submissions are welcomed and processed with the same rigour as the first. The Bureau prides itself on consistency of service across all submissions, however many times a case circulates.</p></div>
+  </div>
+
+  <p class="foot">The Bureau of Small Decisions • Intake Window No. 1 • Form 27-B (revised)<br>Please retain your case file for your records.<br>The Bureau was restructured. Four departments were let go; their duties were redistributed to no one.</p>
+</div>
+
+<script>
+(function(){
+  var optA = document.getElementById('optA');
+  var optB = document.getElementById('optB');
+  var submitBtn = document.getElementById('submitBtn');
+  var againBtn = document.getElementById('againBtn');
+  var statusBar = document.getElementById('statusBar');
+  var processEl = document.getElementById('process');
+  var feed = document.getElementById('feed');
+  var queueList = document.getElementById('queueList');
+  var returnCard = document.getElementById('returnCard');
+  var loopsEl = document.getElementById('loops');
+  var returnedEl = document.getElementById('returned');
+  var running = false, loops = 0, pagesNow = 3, decisions = 0, heldNumbers = [], petitionPending = false, petitionQueued = false;
+
+  function esc(s){ return s.replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+  /* presets */
+  document.getElementById('presets').addEventListener('click', function(e){
+    var btn = e.target.closest('.preset'); if(!btn) return;
+    document.querySelectorAll('.preset').forEach(function(p){ p.classList.remove('on'); });
+    btn.classList.add('on');
+    optA.value = btn.getAttribute('data-a');
+    optB.value = btn.getAttribute('data-b');
+  });
+  [optA, optB].forEach(function(inp){
+    inp.addEventListener('input', function(){
+      document.querySelectorAll('.preset').forEach(function(p){ p.classList.remove('on'); });
+    });
+  });
+
+  var DEPTS = [
+    { name:'Coin Flip Division', color:'var(--yellow)' },
+    { name:'Department of Vibes', color:'var(--pink)' },
+    { name:'Council of Houseplants', color:'var(--green)' },
+    { name:'Moon Consultation', color:'var(--sky)' },
+    { name:'Department of Returns', color:'var(--mauve)' }
+  ];
+
+  function buildQueue(display){
+    queueList.innerHTML = '';
+    display.forEach(function(item, i){
+      var d = DEPTS[item.dept - 1];
+      var el = document.createElement('div');
+      el.className = 'q-item' + (item.kind === 'closed' ? ' closed-item' : '');
+      el.id = 'q-' + (i + 1);
+      var note = '';
+      if(item.kind === 'closed') note = '<span class="route-note">closed — will be routed around</span>';
+      if(item.kind === 'dual') note = '<span class="route-note">second processing, as required</span>';
+      el.innerHTML = '<span class="n">' + (item.kind === 'closed' ? '✕' : item.dept) + '</span><span>' + d.name + note + '</span>';
+      queueList.appendChild(el);
+    });
+  }
+  function setQueue(n, state){
+    var el = document.getElementById('q-' + n); if(!el) return;
+    el.classList.remove('on','done');
+    if(state) el.classList.add(state);
+  }
+
+  function formal(s){ return 'The Matter of ' + s + ' (Referred, Pending, Re-referred)'; }
+
+  function stepsFor(A, B){
+    var flips = [];
+    for(var i=0;i<7;i++) flips.push(Math.random() < .5 ? 'H' : 'T');
+    var heads = flips.filter(function(f){ return f==='H'; }).length;
+    var vibeA = 30 + Math.floor(Math.random()*45), vibeB = 30 + Math.floor(Math.random()*45), vibeC = 30 + Math.floor(Math.random()*45);
+    var moon = pick([
+      'The Moon has read your dilemma and left it on read.',
+      'The Moon is in a “new phone, who dis” phase and cannot be reached.',
+      'The Moon responded with a single crater emoji. Meaning unclear. Beautiful, though.',
+      'The Moon is waxing, which the bureau records as “growth, spiritually” and moves on.'
+    ]);
+    return [
+      { dept:1, title:'Seven coins flipped. The coins decline to form a pattern.',
+        body:'The Coin Flip Division flipped a coin seven times on the question of <b>' + esc(A) + '</b> versus <b>' + esc(B) + '</b>. Heads appeared ' + heads + ' times, tails ' + (7-heads) + ' times. A recount was demanded, produced the same numbers, and was described by staff as “deeply unhelpful, statistically.” One coin landed on its edge and has been promoted.',
+        detail:'<span class="k">sequence:</span> <span class="hl">' + flips.join(' · ') + '</span> &nbsp; <span class="k">conclusion:</span> coins are round' },
+      { dept:2, title:'Vibes measured at great length. Vibes remain vibes.',
+        body:'Trained vibe technicians have taken three independent readings. The readings disagree with each other in a way the department describes as “rich.” No technician will say what a vibe reading of 100 would even mean, and asking twice is considered rude.',
+        bars:[['Atmospheric', vibeA],['Emotional', vibeB],['General aura', vibeC]] },
+      { dept:3, title:'The houseplants have voted. It is a tie, forever.',
+        body:'Five houseplants were consulted. The monstera favors <b>' + esc(A) + '</b>. The pothos favors <b>' + esc(B) + '</b>. The succulent and the snake plant cancelled each other out out of politeness. The fern abstained on principle, as is its right. Final tally: tied, with one principled silence.',
+        detail:'<span class="k">monstera:</span> ' + esc(A) + ' &nbsp; <span class="k">pothos:</span> ' + esc(B) + '<br><span class="k">succulent ✕ snake plant:</span> mutual cancellation &nbsp; <span class="k">fern:</span> <span class="hl">abstains, nobly</span>' },
+      { dept:4, title:'The Moon has been consulted. The Moon is busy.',
+        body: moon + ' This is recorded in the ledger as “cosmic input received,” because the ledger is generous like that. Your dilemma is neither nearer nor farther from the Moon than when we started.',
+        detail:'<span class="k">consultation fee:</span> one (1) upward glance &nbsp; <span class="k">response time:</span> <span class="hl">eventually</span>' },
+      { dept:5, title:'Prepared for return, in a nicer envelope.',
+        body:'The Department of Returns has reviewed the full file — all five departments, every reading, every vote — and prepared your dilemma for its journey back to you under its formal file name, <b>' + esc(formal(A)) + '</b>. The envelope is lovely. The contents are precisely what you sent.',
+        detail:'<span class="k">file status:</span> <span class="hl">complete</span> &nbsp; <span class="k">file contents:</span> your dilemma, as submitted &nbsp; <span class="k">decision enclosed:</span> none' }
+    ];
+  }
+
+  function addStepCard(step){
+    var d = DEPTS[step.dept - 1];
+    var card = document.createElement('div');
+    card.className = 'step-card';
+    var html = '<div class="dept"><span class="tag" style="background:' + d.color + '">Dept. ' + step.dept + ' / 5' + (step.dual ? ' · 2nd processing' : '') + '</span><h4>' + d.name + '</h4><span class="stamp">Processed</span></div>';
+    html += '<p><b>' + step.title + '</b></p>';
+    html += '<p style="margin-top:5px">' + step.body + '</p>';
+    if(step.detail) html += '<div class="detail">' + step.detail + '</div>';
+    if(step.bars){
+      html += '<div style="margin-top:10px">';
+      step.bars.forEach(function(b, i){
+        var colors = ['var(--pink)','var(--sky)','var(--lav)'];
+        html += '<div class="bar-row"><span>' + b[0] + '</span><div class="bar-track"><div class="bar-fill" data-w="' + b[1] + '" style="background:' + colors[i] + '"></div></div><span>' + b[1] + '/100</span></div>';
+      });
+      html += '</div>';
+    }
+    card.innerHTML = html;
+    feed.appendChild(card);
+    card.querySelectorAll('.bar-fill').forEach(function(f){
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ f.style.width = f.getAttribute('data-w') + '%'; }); });
+    });
+    card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    return card;
+  }
+
+  /* ---------- transit: the distance between departments ---------- */
+  function addTransitCard(fromN, toN, t){
+    var card = document.createElement('div');
+    card.className = 'step-card transit-card';
+    var html = '<div class="dept"><span class="tag transit-tag">Transit · Dept. ' + fromN + ' → Dept. ' + toN + '</span><span class="stamp transit-stamp">' + t.stamp + '</span></div>';
+    html += '<p><b>' + t.title + '</b></p>';
+    html += '<p style="margin-top:4px">' + t.body + '</p>';
+    if(t.detail) html += '<div class="detail">' + t.detail + '</div>';
+    card.innerHTML = html;
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+
+  var TRANSIT = [
+    function(ctx){ return {
+      status:'transfer authorization pending (copy 2 of 3 unaccounted for)', stamp:'Re-filed',
+      title:'Transfer authorization is required before this handoff may proceed.',
+      body:'Form T-9 has been completed in triplicate, as required for any movement of a file between departments. In the course of being filed, one copy was lost. It has been re-filed. The surviving copies have been compared against one another and certified as copies.',
+      detail:'<span class="k">form:</span> T-9 &nbsp; <span class="k">copies:</span> <span class="hl">3 filed, 1 lost, 1 re-filed</span> &nbsp; <span class="k">authorization:</span> granted, in due course' }; },
+    function(ctx){ return {
+      status:'awaiting a Waiver of Sequence', stamp:'Waived',
+      title:'The prerequisite documentation for this transfer is circular.',
+      body:'The receiving department requires Stamp S-2 before it may accept the file. Stamp S-2 is issued only by the department after it, which requires the receiving department’s countersignature first. A Waiver of Sequence has been applied for, reviewed, and granted. The sequence stands waived, and the file may proceed in the order it was already traveling.',
+      detail:'<span class="k">waiver:</span> W-0 &nbsp; <span class="k">grounds:</span> sequence &nbsp; <span class="k">outcome:</span> <span class="hl">sequence waived</span>' }; },
+    function(ctx){ return {
+      status:'retrieving the file from the Sub-Basement Annex', stamp:'Retrieved',
+      title:'The file was routed to an office that is not part of this process.',
+      body:'Owing to a labeling convention that no one will explain, the file was delivered to the Sub-Basement Annex (Office of Unrelated Matters), where it was read with interest by staff who have no role in the matter. A clerk has retrieved it. The annex has requested a copy for its records. A copy has been sent.',
+      detail:'<span class="k">detour:</span> Sub-Basement Annex &nbsp; <span class="k">retrieval:</span> by clerk &nbsp; <span class="k">copies to annex:</span> <span class="hl">1, for its records</span>' }; },
+    function(ctx){ var n1 = 40 + Math.floor(Math.random()*50); var n2 = n1 + 3 + Math.floor(Math.random()*30); return {
+      status:'in a waiting room (its number was called during its absence)', stamp:'Re-numbered',
+      title:'The file has taken a number and is waiting to be called.',
+      body:'Numbers are being called in an order the waiting room describes as internal. The file’s number, ' + n1 + ', was called while the file was in the other waiting room. It has taken a new number, ' + n2 + ', and resumed waiting — in the correct room, this time, with the incorrect number.',
+      detail:'<span class="k">first number:</span> ' + n1 + ' &nbsp; <span class="k">called:</span> during absence &nbsp; <span class="k">current number:</span> <span class="hl">' + n2 + '</span> &nbsp; <span class="k">estimated wait:</span> pending' }; },
+    function(ctx){ var mode = pick(['pneumatic tube','mail cart','courier, on foot']); return {
+      status:'in transit by ' + mode + ' — courier at lunch (scheduled)', stamp:'In transit',
+      title:'The file is in transit by ' + mode + '.',
+      body:'Transit is proceeding at the standard rate. Mid-route, the courier observed a scheduled lunch period, as entitled. The file waited with the courier, as required. Transit has since resumed. The file was not consulted about lunch.',
+      detail:'<span class="k">method:</span> ' + mode + ' &nbsp; <span class="k">lunch:</span> observed, in full &nbsp; <span class="k">delay class:</span> <span class="hl">scheduled</span>' }; },
+    function(ctx){ var ack = 'ACK-' + (100 + Math.floor(Math.random()*900)); return {
+      status:'exchanging confirmation memoranda', stamp:'Acknowledged',
+      title:'Confirmation of receipt has been requested, confirmed, and acknowledged.',
+      body:'The sending department requested written confirmation that the file would be received. The receiving department confirmed by memo. The sending department has now formally acknowledged the confirmation. The acknowledgment has been assigned its own form number and entered into the record, where it will be confirmed in due course.',
+      detail:'<span class="k">confirmation:</span> received &nbsp; <span class="k">acknowledgment:</span> filed as <span class="hl">' + ack + '</span> &nbsp; <span class="k">acknowledgment of acknowledgment:</span> not required (yet)' }; },
+    function(ctx){ var reason = pick(['a missing middle initial in the submitter block','the use of an ink color that does not appear on the approved list','Form 27-B having been revised while the file was waiting']); ctx.formRev++; return {
+      status:'returned on a technicality — the leg has been restarted', stamp:'Returned',
+      title:'The file has been returned on a technicality.',
+      body:'Review identified ' + reason + '. The affected leg has been restarted using the current form version, and every previously completed portion of the leg has been re-completed — in the same order, to the same standard, with the same result expected.',
+      detail:'<span class="k">form:</span> 27-B rev. ' + ctx.formRev + ' &nbsp; <span class="k">leg status:</span> <span class="hl">restarted, re-completed</span> &nbsp; <span class="k">dilemma condition:</span> unaffected' }; },
+    function(ctx){ return {
+      status:'at the checkpoint — a temporary hall pass is being arranged by telephone', stamp:'Cleared',
+      title:'A security checkpoint stands between this department and the next.',
+      body:'Passage requires a hall pass. The Hall Pass Office is located on the far side of the checkpoint. After three telephone calls, a temporary pass has been arranged, valid for this crossing only. The file has crossed. The pass has been surrendered and filed.',
+      detail:'<span class="k">pass:</span> temporary, single crossing &nbsp; <span class="k">arranged by:</span> telephone (3 calls) &nbsp; <span class="k">pass status:</span> <span class="hl">surrendered, filed</span>' }; },
+    function(ctx){ return {
+      status:'awaiting the next hand-off window (missed by one minute)', stamp:'Held',
+      title:'The scheduled hand-off window was missed by one minute.',
+      body:'This transfer requires both departments to act at the same moment. The sending department was ready at the appointed time; the receiving department was ready one minute later. The file will wait for the next scheduled window. Windows occur every forty minutes. The file is using the interval to remain a file.',
+      detail:'<span class="k">miss margin:</span> 1 minute &nbsp; <span class="k">next window:</span> in 40 minutes &nbsp; <span class="k">file activity during wait:</span> <span class="hl">none recorded</span>' }; },
+    function(ctx){ var disc = pick(['Copy 2 renders the word “or” in a marginally heavier typeface than Copies 1 and 3.','Copy 3 places a comma after the first option that the other copies do not recognize.','Copy 1 is dated one day earlier than the others, for reasons the dating clerk describes as historical.']); return {
+      status:'reconciling the triplicate copies', stamp:'Reconciled',
+      title:'The triplicate copies do not fully agree. Reconciliation is required.',
+      body:'A reconciliation clerk has compared all three copies, line by line. ' + disc + ' The copies have been certified as agreeing in every respect the Bureau is prepared to act on, and transit may resume.',
+      detail:'<span class="k">copies compared:</span> 3 &nbsp; <span class="k">discrepancies:</span> 1 (<span class="hl">immaterial, certified</span>) &nbsp; <span class="k">reconciler:</span> assigned, then unassigned' }; },
+    function(ctx){ var added = 2 + Math.floor(Math.random()*3); pagesNow += added; return {
+      status:'the file is thickening (cover sheets) — now ' + pagesNow + ' pp.', stamp:'+' + added + ' pp.',
+      title:'Cover sheets have been added to the file.',
+      body:'Each transfer adds a cover sheet identifying the file it covers. The cover sheets themselves require cover sheets. ' + added + ' pages have been added during this transfer alone. The file now stands at ' + pagesNow + ' pages and is carried with both hands.',
+      detail:'<span class="k">pages added:</span> +' + added + ' &nbsp; <span class="k">file thickness:</span> <span class="hl">' + pagesNow + ' pp.</span> &nbsp; <span class="k">handling:</span> two hands' }; },
+    function(ctx){ ctx.codes++; var ref = pick(['TRK','REF','BX','FL']) + '-' + (1000 + Math.floor(Math.random()*9000)); return {
+      status:'compiling the cross-reference table', stamp:'Re-coded',
+      title:'The file has been re-coded for the receiving department.',
+      body:'Each department files under its own tracking number, and no department can locate a file under another department’s number. A cross-reference table has been compiled linking every number assigned so far. The table has been issued a tracking number of its own, which has been added to the table.',
+      detail:'<span class="k">new tracking no.:</span> <span class="hl">' + ref + '</span> &nbsp; <span class="k">numbers now linked:</span> ' + ctx.codes + ' &nbsp; <span class="k">table:</span> filed, numbered' }; },
+    function(ctx){ return {
+      status:'pending (no reason recorded)', stamp:'Pending',
+      title:'The file is pending.',
+      body:'No reason has been recorded, and none is required. The file remained pending for a period the log describes as “a while.” A routine audit, conducted for unrelated reasons, noted the file’s presence in passing, and the pending status was lifted. The audit’s findings regarding the file itself: none.',
+      detail:'<span class="k">reason for hold:</span> not stated &nbsp; <span class="k">duration:</span> a while &nbsp; <span class="k">released by:</span> <span class="hl">routine audit (unrelated)</span>' }; }
+  ];
+
+  function drawTransits(ctx){
+    var counts = [1,2,2,3];
+    var n = counts[Math.floor(Math.random()*counts.length)];
+    var idxs = TRANSIT.map(function(_, i){ return i; });
+    for(var i=idxs.length-1;i>0;i--){ var j = Math.floor(Math.random()*(i+1)); var tmp = idxs[i]; idxs[i] = idxs[j]; idxs[j] = tmp; }
+    idxs = idxs.filter(function(i){ return i !== ctx.last; });
+    return idxs.slice(0, n);
+  }
+
+  async function runTransit(fromN, toN, ctx, opts){
+    opts = opts || {};
+    await maybeStall(ctx, 'leg' + fromN, 'in transit between Dept. ' + fromN + ' and Dept. ' + toN);
+    var pace = opts.trainee ? 2100 : 1500;
+    if(opts.trainee){
+      addTransitCard(fromN, toN, { stamp:'Supervised', title:'This leg is being handled by a trainee.', body:'The trainee has attached a cover letter explaining the file, a second cover letter explaining the first, and a short note of apology for the thickness of the file, which the trainee did not cause. Transit on this leg proceeds at the trainee rate, under supervision, with documents countersigned twice: once by the trainee, and once about the trainee.', detail:'<span class="k">cover letters:</span> <span class="hl">2, plus apology</span> &nbsp; <span class="k">pace:</span> trainee rate' });
+      await sleep(pace);
+    }
+    if(opts.express){
+      addTransitCard(fromN, toN, { stamp:'Express', title:'The file has been routed through the Express Lane.', body:'The Express Lane is reserved for files assessed as urgent. Use of the lane requires an urgency assessment, an express handling endorsement, and a short wait while the endorsement is stamped. The file will accordingly take longer over this leg than it would have by the ordinary route.', detail:'<span class="k">lane:</span> <span class="hl">express</span> &nbsp; <span class="k">urgency:</span> assessed, endorsed &nbsp; <span class="k">net effect:</span> additional time' });
+      await sleep(pace);
+    }
+    var list = drawTransits(ctx);
+    if(opts.express){ var extra = drawTransits(ctx); list = list.concat(extra.slice(0, 1)); }
+    for(var k=0;k<list.length;k++){
+      var t = TRANSIT[list[k]](ctx);
+      ctx.last = list[k];
+      statusBar.textContent = 'Status: in transit, Dept. ' + fromN + ' → Dept. ' + toN + ' — ' + t.status + '. File: ' + pagesNow + ' pp.';
+      addTransitCard(fromN, toN, t);
+      await sleep(pace);
+    }
+    if(opts.stairs){
+      addTransitCard(fromN, toN, { stamp:'On foot', title:'The elevator is out of service. The file is taking the stairs.', body:'The file is being carried up the stairs by a clerk who has counted the steps and will report the count in the file. A rest on the landing is permitted and has been taken. The outage has been reported to the Elevator Office, which is reachable by elevator.', detail:'<span class="k">method:</span> <span class="hl">stairs</span> &nbsp; <span class="k">landing rest:</span> taken &nbsp; <span class="k">step count:</span> to be reported in the file' });
+      await sleep(pace);
+    }
+  }
+
+  async function runLoopback(target, ctx){
+    var name = DEPTS[target-1].name;
+    statusBar.textContent = 'Status: recalled by Quality Review to ' + name + '. File: ' + pagesNow + ' pp.';
+    var card = document.createElement('div');
+    card.className = 'step-card transit-card';
+    card.innerHTML = '<div class="dept"><span class="tag transit-tag">Quality Review · Mandatory</span><span class="stamp transit-stamp">Recalled</span></div>'
+      + '<p><b>The file has been returned to ' + name + ' for verification of a stamp.</b></p>'
+      + '<p style="margin-top:4px">A routine quality review determined that a stamp required at this stage could not be confirmed from the copies available at this end of the building. The file has been sent back to ' + name + ', where the stamp was located on page 1, the position it has occupied throughout. The stamp has been inspected and confirmed present. The file will now re-traverse the intervening departments, which will re-receive it briefly, in passing, without opening it.</p>'
+      + '<div class="detail"><span class="k">stamp:</span> <span class="hl">present all along</span> &nbsp; <span class="k">location:</span> page 1 &nbsp; <span class="k">re-traversal:</span> required, in full</div>';
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    var tIdx = 0;
+    if(ctx && ctx.display){ for(var ti = 0; ti < ctx.display.length; ti++){ if(ctx.display[ti].dept === target && ctx.display[ti].kind !== 'closed'){ tIdx = ti + 1; break; } } }
+    if(tIdx) setQueue(tIdx, 'on');
+    await sleep(1400);
+    if(tIdx) setQueue(tIdx, 'done');
+    statusBar.textContent = 'Status: stamp confirmed present. File re-traversing to its current position. File: ' + pagesNow + ' pp.';
+    await sleep(1100);
+  }
+
+  /* ---------- route events: closures, spot audits, petitions ---------- */
+  function addNoticeCard(tag, stamp, title, body, detail, cls){
+    var card = document.createElement('div');
+    card.className = 'step-card notice-card' + (cls ? ' ' + cls : '');
+    var html = '<div class="dept"><span class="tag" style="background:var(--surface2);color:var(--text)">' + tag + '</span><span class="stamp">' + stamp + '</span></div>';
+    html += '<p><b>' + title + '</b></p><p style="margin-top:4px">' + body + '</p>';
+    if(detail) html += '<div class="detail">' + detail + '</div>';
+    card.innerHTML = html;
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    return card;
+  }
+
+  function addClosureCard(dept, reason){
+    addNoticeCard('Routing notice', 'Closed',
+      DEPTS[dept-1].name + ' is ' + reason + '.',
+      'The closure has been formally noted on the file, and the file has been routed around the department. ' + DEPTS[dept-1].name + ' will not be consulted in this matter. Its absence has been documented with the same care a presence would have received.',
+      '<span class="k">department:</span> <span class="hl">not visited</span> &nbsp; <span class="k">closure:</span> noted, in triplicate &nbsp; <span class="k">appeals:</span> heard at the department, during its next opening',
+      'closure-card');
+  }
+
+  async function runAudit(ctx){
+    statusBar.textContent = 'Status: file pulled for a spot audit. Processing paused. File: ' + pagesNow + ' pp.';
+    addNoticeCard('Office of Spot Audits', 'Audit',
+      'The file has been pulled for a random spot audit.',
+      'Selection for audit is random and implies nothing about the file, which is, so far as anyone can tell, a file. The auditor will examine its stamps, seals, and cover sheets, in that order.',
+      '<span class="k">selection:</span> random &nbsp; <span class="k">implication:</span> <span class="hl">none</span>',
+      'audit-card');
+    await sleep(1900);
+    pagesNow += 1;
+    addNoticeCard('Office of Spot Audits', 'Cleared',
+      'Audit complete. Nothing was found, because there was nothing to find.',
+      'All stamps present. All seals sealed. The audit has been filed inside the file it audited, adding one page. The file is returned to its route.',
+      '<span class="k">findings:</span> none &nbsp; <span class="k">file thickness:</span> <span class="hl">' + pagesNow + ' pp.</span>',
+      'audit-card');
+    await sleep(1500);
+  }
+
+  async function runPetition(ctx){
+    statusBar.textContent = 'Status: a Petition for Expedited Processing has been attached to the file. File: ' + pagesNow + ' pp.';
+    addNoticeCard('Petitions Office', 'Expedited',
+      'A Petition for Expedited Processing has been received and reviewed.',
+      'The petition was found to be in order, and genuinely felt. In recognition of its urgency, the Bureau has added the steps its review required — this review, its countersignature, and a short period of reflection — to the present processing. The case will now conclude sooner than it would have without the petition, by an amount that cannot be determined.',
+      '<span class="k">petition:</span> granted &nbsp; <span class="k">steps added by petition:</span> <span class="hl">3</span> &nbsp; <span class="k">fee:</span> $0.00',
+      'petition-card');
+    pagesNow += 2;
+    await sleep(2200);
+  }
+
+  /* ---------- preliminary formalities: before the departments, the offices ---------- */
+  var PRELIM = [
+    { tag:'Preliminary · Office of Preliminary Review', title:'Form 27-A has been approved, so that Form 27-B may be requested.',
+      body:'Before a case may be submitted, the intention to submit it must be registered on Form 27-A (Request to Request a Review). Your 27-A has been reviewed and approved. Approval of the approval was considered and found unnecessary, this once.',
+      detail:'<span class="k">form:</span> 27-A &nbsp; <span class="k">status:</span> <span class="hl">approved</span> &nbsp; <span class="k">approval of approval:</span> waived (this once)' },
+    { tag:'Preliminary · Fee Assessment Office', title:'A processing fee has been assessed.',
+      body:'The fee for full departmental processing has been calculated according to the published schedule and assessed in the amount of $0.00. A receipt has been issued for the payment of no money. The receipt has itself been receipted, and the receipt for the receipt is available on request, in triplicate.',
+      detail:'<span class="k">fee assessed:</span> <span class="hl">$0.00</span> &nbsp; <span class="k">fee status:</span> paid in full &nbsp; <span class="k">receipts issued:</span> 2 (one for the other)' },
+    { tag:'Preliminary · Office of Seals & Countersignatures', title:'The file has been sealed. The seal has been countersigned.',
+      body:'An outer seal has been applied to the file. Within the outer seal, an inner seal has been located and verified present. The countersignature of the Office of Second Signatures has been obtained; that office no longer exists, and its signature is accepted under the grandfathering provisions.',
+      detail:'<span class="k">seals:</span> 2 (one within the other) &nbsp; <span class="k">countersignatures:</span> 1 &nbsp; <span class="k">signing office:</span> <span class="hl">discontinued, grandfathered</span>' }
+  ];
+
+  function addPrelimCard(p){
+    var card = document.createElement('div');
+    card.className = 'step-card';
+    card.innerHTML = '<div class="dept"><span class="tag" style="background:var(--surface2);color:var(--text)">' + p.tag + '</span><span class="stamp">Filed</span></div>'
+      + '<p><b>' + p.title + '</b></p><p style="margin-top:5px">' + p.body + '</p><div class="detail">' + p.detail + '</div>';
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    return card;
+  }
+
+  var CSIGNS = [
+    'Countersigned · Office of Second Signatures — outer seal verified; inner seal noted within.',
+    'Countersigned · a duplicate signature has been obtained and filed beside the original, for comparison.',
+    'Countersigned · the signature was witnessed by a witness, whose witnessing has itself been witnessed.',
+    'Countersigned · the countersignature has been assigned its own file number and cross-referenced.'
+  ];
+  function addCountersign(card){
+    if(!card) return;
+    var el = document.createElement('div');
+    el.className = 'c-sign';
+    el.textContent = pick(CSIGNS);
+    card.appendChild(el);
+  }
+
+  /* ---------- applicant-action requirements ----------
+     At unannounced points, processing stops and waits — indefinitely — for
+     the applicant to satisfy a routine requirement in the feed. */
+  function stallCard(title, inner){
+    var card = document.createElement('div');
+    card.className = 'step-card stall-card';
+    card.innerHTML = '<div class="dept"><span class="tag">Applicant action required</span><span class="stamp stall-stamp">Held</span></div>'
+      + '<p><b>' + title + '</b></p>' + inner;
+    feed.appendChild(card);
+    card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    return card;
+  }
+  function finishStall(card, msg){
+    var st = card.querySelector('.stall-stamp'); if(st) st.textContent = 'Satisfied';
+    var note = document.createElement('p');
+    note.className = 'stall-note';
+    note.textContent = msg || 'Noted. Processing resumed.';
+    card.appendChild(note);
+  }
+  function norm(s){ return (s || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+
+  function stallSignature(ctx){ return new Promise(function(res){
+    var signed = false;
+    var card = stallCard('A signature is required to proceed.',
+      '<p style="margin-top:4px">The file may not continue unsigned. Sign on the line. Any signature is accepted; legibility is not reviewed.</p>'
+      + '<div class="sign-line" role="button" tabindex="0" aria-label="Sign here"><span>✕ &nbsp;sign here</span></div>'
+      + '<p class="stall-sub">Applicant signature · Form SG-1 · witnessed signatures witnessed separately</p>');
+    var line = card.querySelector('.sign-line');
+    function sign(){
+      if(signed) return; signed = true;
+      line.innerHTML = '<span class="signed">A. Applicant</span>';
+      finishStall(card);
+      setTimeout(res, 750);
+    }
+    line.addEventListener('click', sign);
+    line.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); sign(); } });
+  }); }
+
+  function stallWaitCheck(ctx){ return new Promise(function(res){
+    var card = stallCard('The file is waiting, and requires confirmation that you are too.',
+      '<label class="wait-check"><input type="checkbox" class="wc"><span>I confirm I am still waiting.</span></label>'
+      + '<p class="stall-sub">Confirmation of continued waiting · Form W-2 · an unchecked confirmation is not a confirmation</p>');
+    card.querySelector('.wc').addEventListener('change', function(e){
+      if(e.target.checked){ finishStall(card); setTimeout(res, 650); }
+    });
+  }); }
+
+  function stallHold(ctx){ return new Promise(function(res){
+    var card = stallCard('The file is passing through the service elevator.',
+      '<p style="margin-top:4px">The elevator doors close automatically. Hold the door for the file — press and hold, for the full interval.</p>'
+      + '<button type="button" class="hold-btn"><span class="hold-fill"></span><span class="lbl">Hold the door</span></button>'
+      + '<div class="stall-err"></div>'
+      + '<p class="stall-sub">Elevator courtesy · Form E-3 · doors close automatically</p>');
+    var btn = card.querySelector('.hold-btn'), fill = card.querySelector('.hold-fill'),
+        lbl = card.querySelector('.lbl'), err = card.querySelector('.stall-err');
+    var NEED = 2600, prog = 0, timer = null, done = false;
+    function tick(){ prog += 50; fill.style.width = Math.min(100, prog / NEED * 100) + '%'; if(prog >= NEED) complete(); }
+    function start(e){ if(done) return; if(e) e.preventDefault(); if(timer) return; err.textContent = ''; timer = setInterval(tick, 50); }
+    function stop(){ if(done) return; if(timer){ clearInterval(timer); timer = null; if(prog > 150) err.textContent = 'The doors closed. The file waited. Hold again — the full interval.'; prog = 0; fill.style.width = '0%'; } }
+    function complete(){ done = true; if(timer) clearInterval(timer); fill.style.width = '100%'; lbl.textContent = 'Door held. The file has passed through.'; btn.disabled = true; finishStall(card); setTimeout(res, 650); }
+    btn.addEventListener('pointerdown', start);
+    btn.addEventListener('pointerup', stop);
+    btn.addEventListener('pointerleave', stop);
+    btn.addEventListener('keydown', function(e){ if(e.key === ' ' || e.key === 'Enter') start(e); });
+    btn.addEventListener('keyup', function(e){ if(e.key === ' ' || e.key === 'Enter') stop(); });
+  }); }
+
+  function stallPhone(ctx){ return new Promise(function(res){
+    var card = stallCard('Line 2 is ringing.',
+      '<div class="phone-row"><div class="phone-ic ringing"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#cdd6f4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg></div>'
+      + '<p style="margin:0">Line 2 — Intake, calling about your file. It will ring until answered.</p>'
+      + '<button type="button" class="stall-btn ans" style="margin-top:0">Answer</button></div>'
+      + '<p class="stall-sub">Telephone protocol · Form T-2 · unanswered calls are recorded as ringing</p>');
+    card.querySelector('.ans').addEventListener('click', function(){
+      card.querySelector('.ringing').classList.remove('ringing');
+      this.disabled = true; this.textContent = 'Answered';
+      var p = document.createElement('p');
+      p.style.marginTop = '10px';
+      p.innerHTML = 'Intake: “Yes — the file. It remains a file. That is all.” <span style="color:var(--muted)">The line goes quiet.</span>';
+      card.appendChild(p);
+      finishStall(card);
+      setTimeout(res, 900);
+    });
+  }); }
+
+  function stallReverify(ctx){ return new Promise(function(res){
+    var words = ctx.A.split(/\s+/).filter(Boolean);
+    var wi = words.length > 1 ? 1 : 0;
+    var target = norm(words[wi].replace(/[^A-Za-z0-9'-]/g, ''));
+    var card = stallCard('Re-verification is required.',
+      '<p style="margin-top:4px">To confirm the dilemma is still your dilemma, re-enter <b>word ' + (wi + 1) + '</b> of your first option, exactly as submitted.</p>'
+      + '<input class="stall-input rv" type="text" autocomplete="off" aria-label="Re-enter word ' + (wi + 1) + ' of your first option">'
+      + '<div class="stall-err"></div>'
+      + '<button type="button" class="stall-btn go">Verify</button>'
+      + '<p class="stall-sub">Identity of dilemma · Form ID-7 · the file cannot verify itself</p>');
+    var input = card.querySelector('.rv'), err = card.querySelector('.stall-err');
+    function check(){
+      if(norm(input.value.replace(/[^A-Za-z0-9'-]/g, '')) === target){ finishStall(card); setTimeout(res, 650); }
+      else { err.textContent = 'That is not word ' + (wi + 1) + ' of record. The file waits.'; }
+    }
+    card.querySelector('.go').addEventListener('click', check);
+    input.addEventListener('keydown', function(e){ if(e.key === 'Enter') check(); });
+  }); }
+
+  function stallStamp(ctx){ return new Promise(function(res){
+    var card = stallCard('The receiving stamp has not been applied.',
+      '<p style="margin-top:4px">This department cannot receive what has not been stamped as received. The stamp is here. Apply it.</p>'
+      + '<button type="button" class="stamp-pad">Receiving stamp — press to apply</button><span class="slot"></span>'
+      + '<p class="stall-sub">Receipt &amp; stamping · Form R-4 · unstamped files are, formally, elsewhere</p>');
+    var btn = card.querySelector('.stamp-pad');
+    btn.addEventListener('click', function(){
+      btn.disabled = true; btn.textContent = 'Stamp applied';
+      card.querySelector('.slot').innerHTML = '<span class="received-stamp">Received</span>';
+      finishStall(card);
+      setTimeout(res, 650);
+    });
+  }); }
+
+  function stallCaptcha(ctx){ return new Promise(function(res){
+    var words = ['TEACUP','MOON','ENVELOPE','STAIRCASE','CLOUD','LAMP','RIVER','BUTTON','LEDGER'];
+    var grid = words.map(function(w){ return '<button type="button" class="cap-tile">' + w + '</button>'; }).join('');
+    var card = stallCard('Presence verification.',
+      '<p style="margin-top:4px">To confirm a person is in attendance, select all squares containing <b>a decision</b>. Then verify.</p>'
+      + '<div class="cap-grid">' + grid + '</div>'
+      + '<button type="button" class="cap-tile cap-none">None of the above</button>'
+      + '<div class="stall-err"></div>'
+      + '<button type="button" class="stall-btn verify">Verify</button>'
+      + '<p class="stall-sub">Verification · Form V-9 · administered by the Office of Attendance</p>');
+    var tiles = Array.prototype.slice.call(card.querySelectorAll('.cap-tile'));
+    var noneBtn = card.querySelector('.cap-none');
+    var err = card.querySelector('.stall-err');
+    tiles.forEach(function(t){ t.addEventListener('click', function(){
+      if(t === noneBtn){ tiles.forEach(function(x){ if(x !== noneBtn) x.classList.remove('sel'); }); noneBtn.classList.toggle('sel'); }
+      else { noneBtn.classList.remove('sel'); t.classList.toggle('sel'); }
+      err.textContent = '';
+    }); });
+    card.querySelector('.verify').addEventListener('click', function(){
+      var anyTile = tiles.some(function(t){ return t !== noneBtn && t.classList.contains('sel'); });
+      if(anyTile){ err.textContent = 'Incorrect. Those squares contain no decision. No square does. Selections cleared.'; tiles.forEach(function(t){ t.classList.remove('sel'); }); return; }
+      finishStall(card, 'Verified: no decision present. Noted. Processing resumed.');
+      setTimeout(res, 700);
+    });
+  }); }
+
+  function stallTicket(ctx){ return new Promise(function(res){
+    var num = 40 + Math.floor(Math.random()*50);
+    heldNumbers.push(num);
+    var card = stallCard('Numbers are being called in order.',
+      '<p style="margin-top:4px">To be called, a number must first be held. Take a ticket.</p>'
+      + '<button type="button" class="stall-btn tk">Take a ticket</button><span class="slot"></span>'
+      + '<p class="stall-sub">Queue administration · Form Q-1 · numbers resume once yours is held</p>');
+    var btn = card.querySelector('.tk');
+    btn.addEventListener('click', function(){
+      btn.disabled = true; btn.textContent = 'Ticket taken';
+      card.querySelector('.slot').innerHTML = '<span class="ticket-stub">Ticket № ' + num + ' — retain for the record</span>';
+      setTimeout(function(){
+        finishStall(card, 'Number ' + num + ' has been called. It was yours. Noted. Processing resumed.');
+        setTimeout(res, 700);
+      }, 1100);
+    });
+  }); }
+
+  function stallCorrect(ctx){ return new Promise(function(res){
+    var bad = ctx.A;
+    if(bad.length >= 4){ var i = 1 + Math.floor(Math.random() * (bad.length - 2)); bad = bad.slice(0, i) + bad.charAt(i) + bad.slice(i); }
+    else { bad = bad + bad.slice(-1); }
+    var card = stallCard('A discrepancy has been found in the record.',
+      '<p style="margin-top:4px">Your first option was recorded as shown below. It does not match your submission. Correct the record to match what you submitted.</p>'
+      + '<input class="stall-input cf" type="text" autocomplete="off" aria-label="Correct the recorded option" value="' + esc(bad) + '">'
+      + '<div class="stall-err"></div>'
+      + '<button type="button" class="stall-btn go">File correction (Form C-1)</button>'
+      + '<p class="stall-sub">Corrections · Form C-1 · corrections are filed in triplicate, one corrected</p>');
+    var input = card.querySelector('.cf'), err = card.querySelector('.stall-err');
+    function check(){
+      if(norm(input.value) === norm(ctx.A)){ finishStall(card, 'Correction accepted and filed as Form C-1. Noted. Processing resumed.'); setTimeout(res, 650); }
+      else { err.textContent = 'The correction does not match the submission of record. The discrepancy stands.'; }
+    }
+    card.querySelector('.go').addEventListener('click', check);
+    input.addEventListener('keydown', function(e){ if(e.key === 'Enter') check(); });
+  }); }
+
+  var STALLS = [stallSignature, stallWaitCheck, stallHold, stallPhone, stallReverify, stallStamp, stallCaptcha, stallTicket, stallCorrect];
+
+  function shuffleArr(a){ for(var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  async function runStall(type, where, ctx){
+    statusBar.textContent = 'Status: held pending applicant action (' + where + '). The file is not in motion.';
+    await STALLS[type](ctx);
+    ctx.actions++;
+    statusBar.textContent = 'Status: applicant action noted. Processing resumed.';
+    await sleep(600);
+  }
+  async function maybeStall(ctx, key, where){
+    if(!ctx.stallPlan || ctx.stallPlan[key] === undefined || ctx.stallUsed[key]) return;
+    ctx.stallUsed[key] = true;
+    await runStall(ctx.stallPlan[key], where, ctx);
+  }
+
+  async function run(){
+    if(running) return;
+    var A = (optA.value || '').trim() || 'Option A';
+    var B = (optB.value || '').trim() || 'Option B';
+    running = true;
+    submitBtn.disabled = true;
+    submitBtn.firstChild.textContent = 'Processing… your case is with the departments ';
+    returnCard.classList.remove('show');
+    processEl.classList.add('show');
+    /* route determination, made during processing and not before:
+       closures, dual processing, express legs, trainees, stairs, audits */
+    var closedSet = {};
+    if(Math.random() < 0.38){ closedSet[pick([1,2,3,4])] = pick(['closed for a staff meeting','closed for lunch','closed for a training day','closed for staff development']); }
+    var dualPool = [1,2,3,4].filter(function(d){ return !closedSet[d]; });
+    var dualDept = Math.random() < 0.28 ? pick(dualPool) : 0;
+    var display = [];
+    for(var dd = 1; dd <= 5; dd++){
+      if(closedSet[dd]){ display.push({ dept:dd, kind:'closed' }); continue; }
+      display.push({ dept:dd, kind:'visit' });
+      if(dd === dualDept) display.push({ dept:dd, kind:'dual' });
+    }
+    var visitSeq = display.filter(function(x){ return x.kind !== 'closed'; }).map(function(x){ return x.dept; });
+    var legMods = {};
+    for(var lm = 1; lm < visitSeq.length; lm++){ legMods[lm] = { express: Math.random() < 0.22, trainee: Math.random() < 0.30, stairs: Math.random() < 0.25 }; }
+    var auditAfterVisit = Math.random() < 0.32 ? 1 + Math.floor(Math.random() * Math.max(1, visitSeq.length - 1)) : 0;
+    if(petitionQueued){ petitionPending = true; petitionQueued = false; }
+    buildQueue(display);
+    feed.innerHTML = '';
+    pagesNow = 3;
+    /* choose this run's unannounced hold points: 3–5, scattered across
+       preliminary formalities, department arrivals, and transit legs */
+    var slotKeys = ['pre'];
+    for(var a1 = 1; a1 <= 5; a1++) slotKeys.push('dept' + a1);
+    for(var a2 = 1; a2 <= 4; a2++) slotKeys.push('leg' + a2);
+    shuffleArr(slotKeys);
+    var stallCount = 3 + Math.floor(Math.random() * 3);
+    var typeOrder = shuffleArr([0,1,2,3,4,5,6,7,8]);
+    var stallPlan = {};
+    for(var a3 = 0; a3 < stallCount; a3++) stallPlan[slotKeys[a3]] = typeOrder[a3];
+    var ctx = { last:-1, formRev:4, codes:1, A:A, B:B, actions:0, stallPlan:stallPlan, stallUsed:{} };
+    var loopDept = pick([3,4]);
+    var loopTarget = pick(visitSeq.filter(function(d){ return d !== loopDept; }));
+    ctx.display = display;
+    statusBar.textContent = 'Status: received. Your dilemma has entered the building. File: ' + pagesNow + ' pp.';
+    await sleep(900);
+    await maybeStall(ctx, 'pre', 'during preliminary formalities');
+    for(var p = 0; p < PRELIM.length; p++){
+      statusBar.textContent = 'Status: preliminary formality ' + (p + 1) + ' of 3 — ' + PRELIM[p].tag.split('· ')[1] + '. File: ' + pagesNow + ' pp.';
+      var pc = addPrelimCard(PRELIM[p]);
+      pagesNow += 1;
+      await sleep(1700);
+      addCountersign(pc);
+      await sleep(600);
+    }
+    var steps = stepsFor(A, B);
+    var stepMap = {};
+    steps.forEach(function(st){ stepMap[st.dept] = st; });
+    var prevDept = null, prevIdx = 0, visitCount = 0;
+    for(var di = 0; di < display.length; di++){
+      var item = display[di];
+      if(petitionPending){ petitionPending = false; await runPetition(ctx); }
+      if(item.kind === 'closed'){
+        setQueue(di + 1, 'on');
+        statusBar.textContent = 'Status: ' + DEPTS[item.dept-1].name + ' is ' + closedSet[item.dept] + '. Routing around. File: ' + pagesNow + ' pp.';
+        addClosureCard(item.dept, closedSet[item.dept]);
+        await sleep(1700);
+        setQueue(di + 1, 'done');
+        continue;
+      }
+      if(prevDept !== null){
+        setQueue(prevIdx, 'done');
+        await runTransit(prevDept, item.dept, ctx, legMods[visitCount]);
+      }
+      visitCount++;
+      await maybeStall(ctx, 'dept' + item.dept, 'on arrival at ' + DEPTS[item.dept-1].name);
+      setQueue(di + 1, 'on');
+      pagesNow += 1;
+      statusBar.textContent = 'Status: currently with ' + DEPTS[item.dept-1].name + (item.kind === 'dual' ? ' (second processing)' : '') + '. File: ' + pagesNow + ' pp.';
+      var base = stepMap[item.dept];
+      var s = item.kind === 'dual' ? Object.assign({}, base, { dual:true }) : base;
+      var sc = addStepCard(s);
+      await sleep(item.kind === 'dual' ? 1900 : 2400);
+      addCountersign(sc);
+      await sleep(900);
+      if(item.kind === 'visit' && auditAfterVisit && visitCount === auditAfterVisit && visitCount < visitSeq.length){ await runAudit(ctx); }
+      if(item.kind === 'visit' && item.dept === loopDept){ await runLoopback(loopTarget, ctx); }
+      prevDept = item.dept; prevIdx = di + 1;
+    }
+    if(prevIdx) setQueue(prevIdx, 'done');
+    if(petitionPending){ petitionPending = false; await runPetition(ctx); }
+    loops++; loopsEl.textContent = loops;
+    returnedEl.textContent = loops;
+    document.getElementById('rcA').textContent = A;
+    document.getElementById('rcB').textContent = B;
+    document.getElementById('rcPages').textContent = pagesNow + ' pages (submitted as 3)';
+    document.getElementById('rcActions').textContent = ctx.actions;
+    document.getElementById('rcDepts').textContent = visitSeq.length + ' of 5';
+    var notVisited = [];
+    for(var nv = 1; nv <= 4; nv++){ if(closedSet[nv]) notVisited.push(DEPTS[nv-1].name + ' — ' + closedSet[nv]); }
+    var nvEl = document.getElementById('rcNotVisited');
+    if(notVisited.length){
+      nvEl.hidden = false;
+      nvEl.innerHTML = 'Not visited this run: <b>' + notVisited.map(esc).join('; ') + '</b>. The file was routed around the closure, which has been noted in triplicate.';
+    } else { nvEl.hidden = true; }
+    /* final disposition — Department of Returns */
+    var outcomeEl = document.getElementById('rcOutcome');
+    var introEl = document.getElementById('rcIntro');
+    if(Math.random() < 0.04){
+      var chosen = Math.random() < 0.5 ? A : B;
+      decisions++;
+      document.getElementById('decisions').textContent = decisions;
+      document.getElementById('rcChoice').textContent = chosen;
+      document.getElementById('rcDecisionStat').innerHTML = 'Decisions issued: <b>1 — see below</b>';
+      outcomeEl.hidden = false;
+      returnCard.classList.add('has-outcome');
+      introEl.textContent = 'Your dilemma has completed its circuit and is returned to you below — with, on this occasion, something further enclosed.';
+      statusBar.textContent = 'Status: complete. Returned to sender. An outcome has occurred. This has been reported.';
+    } else {
+      document.getElementById('rcDecisionStat').innerHTML = 'Decisions issued: <b>0</b>';
+      outcomeEl.hidden = true;
+      returnCard.classList.remove('has-outcome');
+      introEl.textContent = 'Good news: so is everyone here. Your dilemma has completed the full circuit and is returned to you in its original condition — un-decided, un-damaged, and now extremely well-traveled. Nothing has been resolved. Nothing was ever going to be.';
+      statusBar.textContent = 'Status: complete. Returned to sender, unchanged.';
+    }
+    resetSurvey();
+    returnCard.classList.add('show');
+    returnCard.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    submitBtn.disabled = false;
+    submitBtn.firstChild.textContent = 'Submit another case ';
+    running = false;
+  }
+
+  /* ---------- waiting room & corridor services (ambient, any time) ---------- */
+  var nowServingEl = document.getElementById('nowServing');
+  var nsNum = 7;
+  function advanceNowServing(){
+    nsNum += 1 + Math.floor(Math.random() * 3);
+    if(nsNum > 120) nsNum = 1 + Math.floor(Math.random() * 10);
+    while(heldNumbers.indexOf(nsNum) !== -1) nsNum++;
+    nowServingEl.innerHTML = '<small>Now serving</small>№ ' + nsNum;
+    var hn = document.getElementById('heldNote');
+    if(hn) hn.textContent = heldNumbers.length ? 'Numbers you hold: ' + heldNumbers.join(', ') + '. A held number is not called while it is held.' : 'Numbers you hold: none.';
+  }
+  setInterval(advanceNowServing, 4200);
+
+  var intercomMsgs = [
+    'Your file is important to the Bureau. It will be with you shortly. Shortly is a unit the Bureau does not define.',
+    'Applicants are reminded that waiting is also a stage of processing.',
+    'Will the holder of ticket number 3 please stop checking. Number 3 was called in 1987.',
+    'The Bureau thanks you for your patience, which has been noted and filed.',
+    'A reminder that the pamphlet rack is not a department and cannot accept files.'
+  ];
+  document.getElementById('intercomBtn').addEventListener('click', function(){
+    document.getElementById('intercomMsg').textContent = 'Intercom: ' + pick(intercomMsgs);
+  });
+
+  document.getElementById('petitionBtn').addEventListener('click', function(){
+    var note = document.getElementById('petitionNote');
+    if(running){
+      petitionPending = true;
+      note.innerHTML = 'Petition received. It will be <span class="hl">inserted into the current processing</span>, where its review will add to it.';
+    } else {
+      petitionQueued = true;
+      note.innerHTML = 'Petition filed. It will be <span class="hl">attached to your next case</span>, where its review will add to that processing.';
+    }
+  });
+
+  var vendBtn = document.getElementById('vendBtn');
+  var vendOut = document.getElementById('vendOut');
+  var vendCount = 0;
+  vendBtn.addEventListener('click', function(){
+    vendBtn.disabled = true;
+    vendOut.textContent = 'Selection registered. Dispensing…';
+    setTimeout(function(){
+      vendCount++;
+      var rNo = 1000 + vendCount * 7 + Math.floor(Math.random() * 90);
+      vendOut.innerHTML = 'Dispensed: <span class="hl">nothing</span><br>Charged: $0.00 (paid in full)<br>Receipt № V-' + rNo + ' — retain for your records.';
+      vendBtn.disabled = false;
+    }, 1000);
+  });
+
+  document.querySelectorAll('.pam-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.getElementById('pamView').hidden = false;
+      document.getElementById('pamTitle').textContent = 'Now reading: ' + b.textContent.trim();
+    });
+  });
+
+  var lfBtn = document.getElementById('lfBtn');
+  var lfOut = document.getElementById('lfOut');
+  var lfBusy = false;
+  lfBtn.addEventListener('click', function(){
+    if(lfBusy) return;
+    lfBusy = true; lfBtn.disabled = true;
+    var lines = [
+      'Enquiry logged (Form L-2).',
+      'Shelf 1 checked. Shelf 2 checked. The drawer has been checked twice.'
+    ];
+    lfOut.textContent = lines[0];
+    setTimeout(function(){ lfOut.textContent = lines[0] + ' ' + lines[1]; }, 1200);
+    setTimeout(function(){
+      var finding = running
+        ? 'Finding: your dilemma is not lost. It is in the building, being processed, and may not be retrieved early.'
+        : 'Finding: no dilemma of yours is currently recorded as lost. Any dilemma you submit is tracked at all times, including the times it cannot be located.';
+      lfOut.innerHTML = lines.join(' ') + '<br><span class="hl">' + finding + '</span>';
+      lfBusy = false; lfBtn.disabled = false;
+    }, 2600);
+  });
+
+  var suggCount = 0;
+  document.getElementById('suggBtn').addEventListener('click', function(){
+    var input = document.getElementById('suggInput');
+    suggCount++;
+    var n = 'S-' + (100 + Math.floor(Math.random() * 900)) + '-' + suggCount;
+    document.getElementById('suggNote').innerHTML = 'Suggestion received and filed as <span class="hl">pending dilemma № ' + n + '</span>. It will be routed in due course. No course has been scheduled.';
+    input.value = '';
+  });
+
+  /* ---------- post-processing satisfaction survey ---------- */
+  function resetSurvey(){
+    document.querySelectorAll('.star').forEach(function(s){ s.classList.remove('on'); s.disabled = false; });
+    var n = document.getElementById('surveyNote');
+    if(n) n.textContent = '';
+  }
+  document.querySelectorAll('.star').forEach(function(s){
+    s.addEventListener('click', function(){
+      var v = parseInt(s.getAttribute('data-v'), 10);
+      document.querySelectorAll('.star').forEach(function(x){
+        x.classList.toggle('on', parseInt(x.getAttribute('data-v'), 10) <= v);
+        x.disabled = true;
+      });
+      document.getElementById('surveyNote').textContent = 'Rating received: ' + v + ' of 5. Stamped. Filed. No effect is anticipated, and none will occur.';
+    });
+  });
+
+  submitBtn.addEventListener('click', run);
+  againBtn.addEventListener('click', run);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "museum-of-almost-finished-projects",
+  "version": "0.1.0",
+  "description": "A static-site museum for the projects you never finished. Each abandoned idea is preserved as a specimen: cause of death, artifacts, fragments, weird notes, and a timeline of collapse.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsx src/build.ts",
+    "serve": "tsx src/serve.ts",
+    "dev": "tsx src/build.ts && tsx src/serve.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^14.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^5.1.1"
+  },
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  }
+}
