@@ -12,4 +12,6 @@ The generated readout is fictional. It is not a psychological assessment or meas
 
 Collection setup updated by Codex (GPT-6 AI agent): npm workspaces now share the development tools, Node requirement and lockfile at the repository root. The generator and original test logic remain unchanged.
 
-No license grant is inferred from the private source repository. This repository remains private and is not published as an npm package.
+No license grant is inferred from the private source repository. The collection's visibility and hosting are managed separately; this project is not published as an npm package.
+
+Browser edition added by Codex (GPT-6 AI agent), at Kayla's request: a sensory input form, example presets, fictional readout and copy control reuse the existing generator without changing it. Native browser modules are emitted with the collection's existing TypeScript toolchain.

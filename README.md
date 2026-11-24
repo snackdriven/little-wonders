@@ -34,6 +34,19 @@ Bring two options. Receive the full attention of five fictional departments.
 
 Form 27-B travels through queues, detours and requests for further cooperation. The Bureau usually returns your dilemma intact. Occasionally, almost in spite of itself, it makes a decision.
 
+## Play in your browser
+
+Open [little-wonders.snackdriven.com](https://little-wonders.snackdriven.com/) and choose a project.
+
+| Project | Browser path |
+| --- | --- |
+| Nullify | [/nullify/](https://little-wonders.snackdriven.com/nullify/) |
+| Bureau | [/bureau/](https://little-wonders.snackdriven.com/bureau/) |
+| Museum | [/museum/](https://little-wonders.snackdriven.com/museum/) |
+| Emotion Machine | [/machine/](https://little-wonders.snackdriven.com/machine/) |
+
+Emotion Machine also keeps its command-line version. The browser edition runs locally in the visitor's browser.
+
 ## Take one home
 
 The Node projects share one install. Select Node.js 24.21.0 with your version manager (`nvm use 24.21.0` with nvm-windows). From the repository root, run:
@@ -56,6 +69,8 @@ Use Node.js **24.21.0** for both Node projects. The exact version is pinned in `
 Run `npm run check` to typecheck both Node projects, run their tests and build the museum. Shared development tools and the lockfile live at the repository root.
 
 The two HTML toys need no build step. The Bureau requests Google Fonts and uses local font fallbacks if they are unavailable.
+
+Build the full website with `npm run build:site`, then check its routes and assets with `npm run check:site`. GitHub Actions checks and publishes the generated `dist/` folder on pushes to `main`. DNS points the custom subdomain at GitHub Pages.
 
 ## Changes and releases
 

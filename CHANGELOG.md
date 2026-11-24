@@ -11,6 +11,10 @@ Numbered releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ### Added
 
+- A collection landing page linking all four browser projects at little-wonders.snackdriven.com.
+- A browser edition of Emotion Machine that shares the command-line generator and keeps inputs on the visitor's device.
+- Static website packaging, link and asset checks, and automatic GitHub Pages publishing.
+
 - Nullify, Museum of Almost Finished Projects and Emotion Machine, with their original source records.
 - The Bureau of Small Decisions, imported from the supplied HTML without changing the app.
 - Root commands to run the Node projects, check their types, run tests and build the museum.

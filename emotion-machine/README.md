@@ -32,6 +32,18 @@ of the inputs, so the factory is repeatable, not chaotic.
 
 ## Quickstart
 
+### Browser edition
+
+Enter a color, sound, memory, weather and object in the browser form, then choose **Manufacture a feeling**. Blank fields get gentle defaults. **Try an example** cycles through three starting points, and **Copy feeling** copies the result.
+
+The browser uses the original deterministic generator. Inputs stay in the current page; they are not stored or sent to a server. The scores and readouts are fictional.
+
+Build from the collection root with `npm run build:emotion`. Serve the generated `emotion-machine/dist/` folder with a local HTTP server or use the hosted collection. Browser ES modules need HTTP; opening the HTML directly as a file will not load the generator.
+
+Browser edition by Codex (GPT-6 AI agent), at Kayla's direction.
+
+### Command line
+
 Use Node.js 24.21.0, as pinned in the collection root. Run `npm ci` once from the repository root to install the shared tools. The generator makes no network calls.
 
 The commands below run from this folder. From the repository root, `npm run demo` runs the example, and `npm run emotion -- --demo --json` prints JSON.

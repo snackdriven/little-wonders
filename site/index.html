@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An ode to frivolity and a commitment of whimsy. Four small, strange things to spend a little time with.">
+  <meta name="author" content="Kayla; collection page by Codex (GPT-6 AI agent)">
+  <meta name="theme-color" content="#19241f">
+  <title>little-wonders | A commitment of whimsy</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2319241f'/%3E%3Cpath d='M32 9 37 26 54 32 37 38 32 55 26 38 10 32 26 26Z' fill='%23eed99d'/%3E%3C/svg%3E">
+  <style>
+    :root { color-scheme: dark; --ink:#f3eee1; --muted:#b9c3b6; --paper:#19241f; --line:#435247; --gold:#eed99d; font-family:Georgia, 'Times New Roman', serif; background:var(--paper); color:var(--ink); }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(ellipse at 100% 0, #31433266, transparent 52%); }
+    a { color:inherit; }
+    a:focus-visible { outline:3px solid var(--gold); outline-offset:7px; }
+    .skip { position:absolute; top:12px; left:20px; padding:12px; background:var(--ink); color:var(--paper); transform:translateY(-160%); z-index:3; }
+    .skip:focus { transform:none; }
+    .wrap { width:min(1120px, calc(100% - 64px)); margin:auto; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:28px 0; border-bottom:1px solid var(--line); font: .875rem/1.5 system-ui,sans-serif; }
+    .wordmark { font-weight:650; letter-spacing:-.025em; }
+    .wordmark span { color:var(--gold); padding-right:8px; }
+    header a { text-underline-offset:5px; color:var(--muted); }
+    .hero { position:relative; padding:76px 0 64px; }
+    .eyebrow { font:.8rem/1.5 system-ui,sans-serif; text-transform:uppercase; letter-spacing:.16em; color:var(--muted); }
+    h1 { font-size:clamp(3rem, 10vw, 8.6rem); font-weight:400; line-height:.95; letter-spacing:-.065em; margin:25px 0 32px; }
+    .hero-bottom { display:flex; justify-content:space-between; align-items:end; gap:40px; }
+    .manifesto { max-width:650px; margin:0; font-size:clamp(1.5rem, 3vw, 2.05rem); line-height:1.4; letter-spacing:-.025em; }
+    .manifesto em { color:var(--gold); }
+    .hero-note { width:190px; flex-shrink:0; margin:0 0 4px; color:var(--muted); font: .9rem/1.7 system-ui,sans-serif; }
+    .section-label { display:flex; align-items:center; gap:18px; margin:0 0 24px; color:var(--muted); font:.8rem/1.5 system-ui,sans-serif; text-transform:uppercase; letter-spacing:.13em; }
+    .section-label::after { content:''; height:1px; background:var(--line); flex:1; }
+    .collection { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .wonder { position:relative; display:flex; flex-direction:column; text-decoration:none; border:1px solid var(--line); border-radius:4px; overflow:hidden; transition:transform .2s ease, border-color .2s ease; }
+    .wonder:hover { transform:translateY(-4px); border-color:var(--accent); }
+    .scene { display:flex; justify-content:center; align-items:center; height:190px; background:var(--back); color:var(--accent); overflow:hidden; border-bottom:1px solid #ffffff13; }
+    .scene svg { width:240px; height:160px; overflow:visible; }
+    .copy { display:flex; flex-direction:column; flex:1; padding:30px 32px 28px; background:#ffffff03; }
+    .kind { color:var(--accent); font:.78rem/1.5 system-ui,sans-serif; text-transform:uppercase; letter-spacing:.11em; }
+    h3 { max-width:420px; font-size:clamp(1.6rem, 3vw, 2.1rem); font-weight:400; letter-spacing:-.035em; line-height:1.13; margin:12px 0 16px; text-wrap:balance; }
+    .description { color:#c1c9bd; font:1rem/1.7 system-ui,sans-serif; margin:0 0 28px; max-width:430px; }
+    .visit { align-self:start; margin-top:auto; color:var(--accent); border-bottom:1px solid currentColor; padding-bottom:4px; font:.95rem/1.5 system-ui,sans-serif; }
+    .nullify { --back:#293c32; --accent:#b9d8b0; }
+    .bureau { --back:#41392b; --accent:#ead19b; }
+    .museum { --back:#3a323d; --accent:#d9bddb; }
+    .emotion { --back:#293a43; --accent:#afcfdc; }
+    .closing { text-align:center; padding:76px 20px 64px; color:var(--muted); }
+    .closing .star { display:block; font-size:2rem; color:var(--gold); margin-bottom:16px; }
+    .closing p { margin:0; font-size:1.35rem; font-style:italic; line-height:1.5; }
+    footer { display:flex; justify-content:space-between; align-items:start; gap:28px; border-top:1px solid var(--line); padding:25px 0 32px; color:var(--muted); font:.8rem/1.6 system-ui,sans-serif; }
+    footer p { margin:0; max-width:570px; }
+    footer a { text-underline-offset:4px; }
+    @media (max-width:700px) {
+      .wrap { width:calc(100% - 40px); }
+      .hero { padding:54px 0 44px; }
+      .hero-bottom { display:block; }
+      .hero-note { width:auto; max-width:320px; margin-top:22px; }
+      .collection { grid-template-columns:1fr; gap:20px; }
+      .copy { padding:25px; }
+      .scene { height:170px; }
+      footer { flex-direction:column; gap:18px; }
+      .closing { padding:52px 8px; }
+    }
+    @media (prefers-reduced-motion:reduce) { .wonder { transition:none; } .wonder:hover { transform:none; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#collection">Skip to the collection</a>
+  <div class="wrap">
+    <header>
+      <div class="wordmark"><span aria-hidden="true">✦</span> little-wonders</div>
+      <a href="#collection">Pick something peculiar</a>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="title">
+        <div class="eyebrow">A small collection of unnecessary things</div>
+        <h1 id="title">little-wonders</h1>
+        <div class="hero-bottom">
+          <p class="manifesto">An ode to <em>frivolity</em><br>and a commitment of <em>whimsy.</em></p>
+          <p class="hero-note">Made for the pleasure of following an odd idea somewhere. Come have a look.</p>
+        </div>
+      </section>
+      <section id="collection" aria-labelledby="collection-title">
+        <h2 class="section-label" id="collection-title">Find a little wonder</h2>
+        <div class="collection">
+          <a class="wonder nullify" href="nullify/">
+            <div class="scene" aria-hidden="true">
+              <svg viewBox="0 0 240 160" fill="none">
+                <rect x="40" y="32" width="160" height="102" rx="5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M40 52H200M88 52V134" stroke="currentColor" opacity=".5"/>
+                <circle cx="51" cy="42" r="2" fill="currentColor"/><circle cx="60" cy="42" r="2" fill="currentColor"/><circle cx="69" cy="42" r="2" fill="currentColor"/>
+                <path d="M51 68H75M51 79H70M51 90H73M103 69H179M103 80H158M103 91H170M103 112H141" stroke="currentColor" stroke-linecap="round" opacity=".6"/>
+                <path d="m171 12 3 8 8 3-8 3-3 8-3-8-8-3 8-3ZM25 106l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" fill="currentColor"/>
+                <path d="M199 101c17 0 26 9 26 20s-9 20-21 20" stroke="currentColor" stroke-width="1.5"/><path d="m208 135-6 6 7 5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="copy">
+              <span class="kind">The art of starting over</span>
+              <h3>Nullify</h3>
+              <p class="description">Organize your life into an exquisite system. Refresh the page. Experience the freedom of losing absolutely all of it.</p>
+              <span class="visit">Open Nullify</span>
+            </div>
+          </a>
+          <a class="wonder bureau" href="bureau/">
+            <div class="scene" aria-hidden="true">
+              <svg viewBox="0 0 240 160" fill="none">
+                <path d="m69 24 97 9-10 117-97-9Z" stroke="currentColor" opacity=".45"/>
+                <rect x="78" y="19" width="96" height="119" rx="2" fill="#41392b" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M94 39H147M94 49H157M94 71H157M94 82H142M94 94H157" stroke="currentColor" opacity=".65"/>
+                <circle cx="160" cy="114" r="25" fill="#41392b" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="160" cy="114" r="19" stroke="currentColor" opacity=".5"/>
+                <path d="m151 114 6 6 13-14" stroke="currentColor" stroke-width="2"/>
+                <path d="M41 111H61M45 119H61M178 53H199M183 61H205" stroke="currentColor" opacity=".5"/>
+              </svg>
+            </div>
+            <div class="copy">
+              <span class="kind">Form 27-B awaits</span>
+              <h3>The Bureau of Small Decisions</h3>
+              <p class="description">Two options. Five fictional departments. An astonishing amount of procedure for a remarkably small dilemma.</p>
+              <span class="visit">Enter the Bureau</span>
+            </div>
+          </a>
+          <a class="wonder museum" href="museum/">
+            <div class="scene" aria-hidden="true">
+              <svg viewBox="0 0 240 160" fill="none">
+                <path d="M31 139H209" stroke="currentColor" opacity=".4"/>
+                <rect x="70" y="17" width="99" height="91" stroke="currentColor" stroke-width="1.5"/>
+                <rect x="77" y="24" width="85" height="77" stroke="currentColor" opacity=".5"/>
+                <path d="m92 80 19-27 14 15 11-10 13 22ZM121 38v7M117.5 41.5h7" stroke="currentColor" opacity=".7"/>
+                <path d="M50 139V115M190 139V115M50 121c38 14 102 14 140 0" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="50" cy="113" r="3" fill="currentColor"/><circle cx="190" cy="113" r="3" fill="currentColor"/>
+                <path d="M104 118H137" stroke="currentColor" opacity=".5"/>
+              </svg>
+            </div>
+            <div class="copy">
+              <span class="kind">Please admire the unfinished</span>
+              <h3>The Museum of Almost-Finished Projects</h3>
+              <p class="description">Abandoned ambitions, lovingly exhibited. Browse four fictional specimens, their recovered artifacts and the curator’s notes.</p>
+              <span class="visit">Visit the Museum</span>
+            </div>
+          </a>
+          <a class="wonder emotion" href="machine/">
+            <div class="scene" aria-hidden="true">
+              <svg viewBox="0 0 240 160" fill="none">
+                <rect x="48" y="48" width="143" height="90" rx="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M64 65H175V99H64Z" stroke="currentColor" opacity=".5"/>
+                <path d="m70 84 12-1 7-10 9 20 10-25 9 17 12-6 10 6 10-4h20" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="75" cy="119" r="6" stroke="currentColor"/><circle cx="99" cy="119" r="6" stroke="currentColor"/>
+                <path d="M123 115H173M123 122H156M78 48V35M91 48V24M104 48V35M117 48V17M130 48V31" stroke="currentColor" opacity=".7"/>
+                <path d="m170 12 3 8 8 3-8 3-3 8-3-8-8-3 8-3ZM29 79l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="copy">
+              <span class="kind">Industrialized nostalgia</span>
+              <h3>Machine For Generating Extremely Specific Emotions</h3>
+              <p class="description">A color, a sound, a memory, the weather and an object. Feed the machine five things; receive one oddly specific feeling.</p>
+              <span class="visit">Make a feeling</span>
+            </div>
+          </a>
+        </div>
+      </section>
+      <div class="closing">
+        <span class="star" aria-hidden="true">✦</span>
+        <p>There is room for things whose whole purpose<br>is to make someone grin.</p>
+      </div>
+    </main>
+    <footer>
+      <p>Collection page by Codex (GPT-6 AI agent), with Kayla’s words and direction. Original project authorship is preserved.</p>
+      <a href="https://github.com/snackdriven/little-wonders">little-wonders on GitHub</a>
+    </footer>
+  </div>
+</body>
+</html>
