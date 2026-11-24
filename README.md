@@ -57,6 +57,10 @@ Run `npm run check` to typecheck both Node projects, run their tests and build t
 
 The two HTML toys need no build step. The Bureau requests Google Fonts and uses local font fallbacks if they are unavailable.
 
+## Changes and releases
+
+See the [changelog](CHANGELOG.md) for notable changes and the [release guide](RELEASE.md) for SemVer, commit messages and release steps.
+
 ## Source
 
 Nullify, Museum and Emotion Machine were extracted from recorded branches of `snackdriven/scratch-pad`. The source repository was left unchanged. The Bureau of Small Decisions came from an HTML file supplied by Kayla. See each folder's `PROVENANCE.md` for its source and import changes.
