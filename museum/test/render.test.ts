@@ -49,9 +49,26 @@ describe("renderIndex", () => {
     expect(html).toContain("specimens preserved");
     expect(html).toContain("51"); // collective lifespan
   });
+
+  it("does not turn unknown archive lifespans into zero days or a cause of death", () => {
+    const records = [exhibit({ recordType: "archive", status: "dormant", born: undefined, died: undefined, lifespanDays: undefined })];
+    const archiveHtml = renderIndex(records, computeStats(records));
+    expect(archiveHtml).toContain("Archive note");
+    expect(archiveHtml).not.toContain("days of collective ambition");
+    expect(archiveHtml).not.toContain("Cause of death");
+    expect(archiveHtml).not.toContain('data-filter-status="deceased"');
+  });
 });
 
 describe("renderExhibit", () => {
+  it("distinguishes an archive record from a fictional death timeline", () => {
+    const html = renderExhibit(exhibit({ recordType: "archive", status: "dormant", born: undefined, died: undefined, lifespanDays: undefined }));
+    expect(html).toContain("From the repository record");
+    expect(html).toContain("Archive note");
+    expect(html).not.toContain("Cause of death");
+    expect(html).not.toContain("Timeline of collapse");
+    expect(html).not.toContain("<dt>Died</dt>");
+  });
   it("renders the plaque, epitaph, timeline, and notes", () => {
     const html = renderExhibit(exhibit());
     expect(html).toContain("ChronoKeeper");

@@ -16,7 +16,7 @@ It's a static site generator: drop a markdown file per dead project into
 ## Quick start
 
 Use Node.js 24.21.0, as pinned in the collection root. Run `npm ci` once from the repository root to install the shared tools. From the root, `npm run museum` builds the museum and starts its local server. The commands below run from this folder.
-The four included exhibits are fictional sample content. They are not Kayla's project history.
+The live gallery contains six real projects from Kayla's archived repositories: meh-trics, Daybeam, Executive Dysfunction Center, Jira Wrapper, Last.fm Clone and Snippet Sprite. Their original READMEs and GitHub repository records supply the facts; the museum commentary is new. Repository creation dates do not stand in for project lifespans or retirement dates. Original fictional exhibits and their artwork are preserved under `samples/` and are excluded from the live build.
 
 ```bash
 npm run dev          # build + serve at http://localhost:4173

@@ -28,6 +28,8 @@ export interface TimelineEntry {
 
 /** A single museum exhibit: one project that never made it. */
 export interface Exhibit {
+  /** A real repository record; avoid treating archive metadata as a death date. */
+  recordType?: "archive";
   /** Derived from the filename. */
   slug: string;
   title: string;

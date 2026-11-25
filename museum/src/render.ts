@@ -51,14 +51,14 @@ function statusStamp(status: Exhibit["status"]): string {
 function lobbyStats(stats: MuseumStats): string {
   const rows: string[] = [
     `<div class="stat"><span class="stat__num">${stats.total}</span><span class="stat__label">specimens preserved</span></div>`,
-    `<div class="stat"><span class="stat__num">${stats.totalLifespanDays.toLocaleString()}</span><span class="stat__label">days of collective ambition</span></div>`,
   ];
+  if (stats.shortestLived) rows.push(`<div class="stat"><span class="stat__num">${stats.totalLifespanDays.toLocaleString()}</span><span class="stat__label">recorded days of collective ambition</span></div>`);
   if (stats.shortestLived) {
     rows.push(
       `<div class="stat"><span class="stat__num">${stats.shortestLived.days}d</span><span class="stat__label">shortest life · ${escapeHtml(stats.shortestLived.title)}</span></div>`,
     );
   }
-  if (stats.topCause) {
+  if (stats.topCause && stats.byStatus.deceased > 0) {
     rows.push(
       `<div class="stat"><span class="stat__num">“${escapeHtml(stats.topCause)}”</span><span class="stat__label">leading cause of death</span></div>`,
     );
@@ -76,8 +76,8 @@ function specimenCard(e: Exhibit): string {
   </div>
   <h2 class="case__title">${escapeHtml(e.title)}</h2>
   ${e.subtitle ? `<p class="case__subtitle">${escapeHtml(e.subtitle)}</p>` : ""}
-  <p class="case__meta">${e.medium ? escapeHtml(e.medium) + " · " : ""}${lifespan(e)}</p>
-  <p class="case__cause"><span class="case__cause-label">Cause of death</span>${escapeHtml(e.causeOfDeath)}</p>
+  <p class="case__meta">${e.medium ? escapeHtml(e.medium) : ""}${e.recordType === "archive" ? "" : " · " + lifespan(e)}</p>
+  <p class="case__cause"><span class="case__cause-label">${e.recordType === "archive" ? "Archive note" : "Cause of death"}</span>${escapeHtml(e.causeOfDeath)}</p>
 </a>`;
 }
 
@@ -89,21 +89,22 @@ export function renderIndex(
   const cssHref = opts.cssHref ?? "assets/museum.css";
   const jsHref = opts.jsHref ?? "assets/museum.js";
   const allTags = [...new Set(exhibits.flatMap((e) => e.tags))].sort();
+  const personalCollection = exhibits.some(e => e.recordType === "archive");
 
   const body = `<header class="lobby">
   <p class="lobby__kicker">Accession in progress</p>
   <h1 class="lobby__title">The Museum of<br/>Almost-Finished Projects</h1>
-  <p class="lobby__blurb">A permanent collection of the things we started and did not finish.
+  <p class="lobby__blurb">${personalCollection ? `Earlier experiments from Kayla's archive, with their ambitions intact.
+  Please admire the ideas without assigning them a tragic ending.` : `A permanent collection of the things we started and did not finish.
   Each specimen is preserved exactly as it was abandoned — mid-thought, mid-refactor,
-  mid-rename. Please do not attempt to revive the exhibits.</p>
+  mid-rename. Please do not attempt to revive the exhibits.`}</p>
+  ${personalCollection ? `<p class="lobby__blurb">Curated by Codex (GPT-6 AI agent), from Kayla's project records. Descriptions follow the original READMEs; the museum commentary is new. Dormant means the repository is archived, not that the project failed.</p>` : ""}
   ${lobbyStats(stats)}
 </header>
 
 <nav class="filters" aria-label="Filter exhibits">
   <button class="filter is-active" data-filter-status="all">All</button>
-  <button class="filter" data-filter-status="deceased">Deceased</button>
-  <button class="filter" data-filter-status="dormant">Dormant</button>
-  <button class="filter" data-filter-status="cryogenic">Frozen</button>
+  ${(["deceased", "dormant", "cryogenic"] as const).filter(status => exhibits.some(e => e.status === status)).map(status => `<button class="filter" data-filter-status="${status}">${status === "cryogenic" ? "Frozen" : STATUS_LABEL[status]}</button>`).join("\n")}
   ${allTags.length ? `<span class="filters__sep"></span>` : ""}
   ${allTags
     .map((t) => `<button class="filter filter--tag" data-filter-tag="${escapeHtml(t)}">#${escapeHtml(t)}</button>`)
@@ -145,7 +146,7 @@ function renderArtifact(a: Artifact): string {
 </figure>`;
 }
 
-function renderTimeline(entries: TimelineEntry[]): string {
+function renderTimeline(entries: TimelineEntry[], archiveRecord = false): string {
   if (entries.length === 0) return "";
   const items = entries
     .map((t, i) => {
@@ -157,7 +158,7 @@ function renderTimeline(entries: TimelineEntry[]): string {
     })
     .join("\n");
   return `<section class="exhibit__section">
-  <h3 class="section-head">Timeline of collapse</h3>
+  <h3 class="section-head">${archiveRecord ? "From the repository record" : "Timeline of collapse"}</h3>
   <ol class="timeline">${items}</ol>
 </section>`;
 }
@@ -201,11 +202,12 @@ export function renderExhibit(
     </div>
     <h1 class="exhibit__title">${escapeHtml(e.title)}</h1>
     ${e.subtitle ? `<p class="exhibit__subtitle">${escapeHtml(e.subtitle)}</p>` : ""}
-    <p class="epitaph"><span class="epitaph__label">Cause of death</span>${escapeHtml(e.causeOfDeath)}</p>
+    <p class="epitaph"><span class="epitaph__label">${e.recordType === "archive" ? "Archive note" : "Cause of death"}</span>${escapeHtml(e.causeOfDeath)}</p>
   </header>
 
   <dl class="specsheet">
     ${dl("Medium", e.medium)}
+    ${dl("Curated by", e.recordType === "archive" ? "Codex (GPT-6 AI agent), from Kayla's project records" : undefined)}
     ${dl("Era", e.era)}
     ${dl("Born", e.born)}
     ${dl("Died", e.died)}
@@ -220,7 +222,7 @@ export function renderExhibit(
 
   ${fragments.length ? `<section class="exhibit__section"><h3 class="section-head">Fragments</h3>${fragments.map(renderArtifact).join("\n")}</section>` : ""}
 
-  ${renderTimeline(e.timeline)}
+  ${renderTimeline(e.timeline, e.recordType === "archive")}
 
   ${renderNotes(e.notes)}
 

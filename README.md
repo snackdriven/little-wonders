@@ -20,7 +20,7 @@ It saves absolutely nothing. Deliberately.
 
 Give an unfinished idea a gallery wall, a curator's note and a small plaque explaining what happened. Markdown project notes become exhibits, complete with recovered artifacts and timelines.
 
-The four included exhibits are fictional specimens. Bring your own abandoned ambitions when you are ready.
+The live collection holds six of Kayla's archived projects. The original fictional specimens are kept as samples.
 
 ### [Machine For Generating Extremely Specific Emotions](emotion-machine/)
 

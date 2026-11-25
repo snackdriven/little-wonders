@@ -11,6 +11,8 @@ Numbered releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ### Added
 
+- Six real museum exhibits from Kayla's archived projects, with source-based descriptions and new curator's notes.
+
 - A collection landing page linking all four browser projects at little-wonders.snackdriven.com.
 - A browser edition of Emotion Machine that shares the command-line generator and keeps inputs on the visitor's device.
 - Static website packaging, link and asset checks, and automatic GitHub Pages publishing.

@@ -77,6 +77,7 @@ export function parseExhibit(path: string, content: string): Exhibit {
     typeof fm.lifespan_days === "number" ? fm.lifespan_days : daysBetween(born, died);
 
   return {
+    recordType: fm.record_type === "archive" ? "archive" : undefined,
     slug,
     title: asString(fm.title) ?? slug,
     subtitle: asString(fm.subtitle),
