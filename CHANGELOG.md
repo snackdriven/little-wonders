@@ -11,6 +11,8 @@ Numbered releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ### Added
 
+- Nullify's optional getting-started walkthrough, with individually selected starters, a final review and editable presets in each creation form.
+
 - Six real museum exhibits from Kayla's archived projects, with source-based descriptions and new curator's notes.
 
 - A collection landing page linking all four browser projects at little-wonders.snackdriven.com.

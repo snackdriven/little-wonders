@@ -1,6 +1,6 @@
 # 🗂️ Nullify — The Machine That Organizes Nothing
 
-*Extracted into `little-wonders/nullify/` by Codex (GPT-6 AI agent). The original app and writing are preserved; see [PROVENANCE.md](PROVENANCE.md).*
+*Extracted into `little-wonders/nullify/` by Codex (GPT-6 AI agent). Getting-started additions by Codex (GPT-6 AI agent); original app by Claude. See [PROVENANCE.md](PROVENANCE.md).*
 
 > A fully functional* productivity app that lets you create categories, labels, systems,
 > and workflows — and stores **absolutely none of it**.
@@ -15,6 +15,9 @@ From the repository root, open `nullify/index.html`. The commands below assume y
 ---
 
 ## What it does
+
+- **Getting started** — an optional five-step walkthrough with unchecked starters for categories, labels, systems and workflows. Review the list before anything is created; skip, go back or revisit setup at any time. Existing starters are not duplicated.
+- **Editable presets** — each creation form has an optional starter menu. It fills a draft; you can change it before using the normal create button.
 
 - **📁 Categories** — name them, color them, watch the counter tick. The foundation of a calm mind.
 - **🏷️ Labels** — a cross-cutting taxonomy for a search feature that does not exist.

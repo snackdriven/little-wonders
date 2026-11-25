@@ -13,8 +13,10 @@ Nullify came from `machine-that-organizes-nothing/` in the private `snackdriven/
 
 The two source files were extracted without content changes before the README was adapted. The original author and commit are recorded above. Unrelated scratch-pad history is not part of this extraction.
 
-The extraction adds this provenance file and a README attribution line. It adjusts the README's folder example and run paths for `little-wonders/nullify/`. `index.html` is unchanged. No license was added or inferred.
+The extraction added this provenance file and a README attribution line. It adjusted the README's folder example and run paths for `little-wonders/nullify/`. No license was added or inferred.
 
-The original repository and its history remain untouched. Extracting the project does not deploy the app or create a public site. Keep the source private unless Kayla authorizes publication.
+On November 24, 2026, Codex (GPT-6 AI agent) added an optional getting-started walkthrough and editable starter presets at Kayla's request. `index.html` now loads `getting-started.css` and `getting-started.js`. The original app logic remains in place; the new choices use the same in-memory state.
+
+The original repository and its history remain untouched. Kayla authorized making `little-wonders` public and publishing the collection at `https://little-wonders.snackdriven.com/`; the original Scratch-pad repository remains private.
 
 The app keeps its state in memory. It deliberately does not save data or run real workflows. Reloading clears the structures. This behavior is part of the joke.

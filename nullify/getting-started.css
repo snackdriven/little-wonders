@@ -1,0 +1,29 @@
+/* Getting-started additions by Codex (GPT-6 AI agent). */
+.setup-banner { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:22px; margin-bottom:26px; border:1px solid var(--line); border-radius:var(--radius); background:linear-gradient(110deg,rgba(124,108,255,.12),var(--panel)); }
+.setup-banner h3 { margin:0 0 7px; font-size:18px; }
+.setup-banner p { margin:0; color:var(--muted); font-size:14px; line-height:1.6; }
+.setup-banner button { flex-shrink:0; }
+.setup-dialog { width:min(620px,calc(100% - 28px)); max-height:calc(100dvh - 28px); padding:0; border:1px solid var(--line); border-radius:20px; color:var(--ink); background:var(--panel); box-shadow:var(--shadow); }
+.setup-dialog::backdrop { background:rgba(6,8,14,.8); }
+.setup-shell { padding:clamp(20px,5vw,36px); }
+.setup-progress { display:flex; gap:6px; margin:0 0 24px; padding:0; list-style:none; }
+.setup-progress li { flex:1; height:5px; border-radius:6px; background:var(--line); }
+.setup-progress li.done { background:var(--accent); }
+.setup-kicker { color:var(--accent-2); font-size:12px; letter-spacing:.09em; text-transform:uppercase; }
+.setup-dialog h2 { margin:12px 0; font-size:26px; letter-spacing:-.6px; }
+.setup-dialog p { color:var(--muted); font-size:15px; line-height:1.65; }
+.setup-options { display:grid; gap:10px; margin:20px 0; }
+.setup-option { display:flex; align-items:flex-start; gap:12px; padding:15px; border:1px solid var(--line); border-radius:10px; background:var(--panel-2); cursor:pointer; font-size:15px; line-height:1.5; }
+.setup-option input { width:18px; height:18px; margin-top:2px; flex-shrink:0; accent-color:var(--accent); }
+.setup-option small { display:block; color:var(--muted); font-size:13px; margin-top:4px; }
+.setup-dialog .field label { display:block; margin-bottom:8px; font-size:14px; }
+.setup-dialog input[type=text] { width:100%; padding:12px; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:8px; font:inherit; }
+.setup-actions { display:flex; align-items:center; gap:10px; margin-top:26px; flex-wrap:wrap; }
+.setup-actions .setup-skip { margin-right:auto; }
+.setup-summary { padding-left:22px; line-height:1.8; font-size:15px; }
+.starter-pick { margin:0 0 18px; }
+.starter-pick select { width:100%; max-width:100%; }
+.starter-pick small { display:block; font-size:12px; line-height:1.6; color:var(--muted); margin-top:6px; }
+.setup-credit { margin-top:12px; font-size:11px; color:var(--muted); }
+.setup-dialog :focus-visible, .setup-banner :focus-visible { outline:3px solid var(--accent-2); outline-offset:4px; }
+@media(max-width:600px) { .setup-banner { align-items:flex-start; flex-direction:column; } .setup-actions .btn { white-space:normal; } }

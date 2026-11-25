@@ -16,6 +16,7 @@ await mkdir(join(output, 'nullify'), { recursive: true });
 await mkdir(join(output, 'bureau'), { recursive: true });
 await cp(join(root, 'site/index.html'), join(output, 'index.html'));
 await cp(join(root, 'nullify/index.html'), join(output, 'nullify/index.html'), { recursive: true });
+for (const file of ['getting-started.js', 'getting-started.css']) await cp(join(root, 'nullify', file), join(output, 'nullify', file));
 await cp(join(root, 'bureau-of-small-decisions/index.html'), join(output, 'bureau/index.html'));
 await cp(join(root, 'museum/dist'), join(output, 'museum'), { recursive: true });
 await cp(join(root, 'emotion-machine/dist'), join(output, 'machine'), { recursive: true });

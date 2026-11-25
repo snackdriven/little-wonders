@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Script } from 'node:vm';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = join(root, 'dist');
@@ -15,6 +16,7 @@ async function walk(dir) {
   }
 }
 await walk(output);
+new Script(await readFile(join(output, 'nullify/getting-started.js'), 'utf8'), { filename: 'nullify/getting-started.js' });
 assert(!files.some(path => /(?:package(?:-lock)?\.json|PROVENANCE\.md|\.ts)$/.test(path)), 'Only browser output may be published');
 for (const [project, route] of [['nullify', 'nullify'], ['bureau-of-small-decisions', 'bureau']]) {
   assert.deepEqual(await readFile(join(output, route, 'index.html')), await readFile(join(root, project, 'index.html')), `${project} HTML must remain unchanged`);
